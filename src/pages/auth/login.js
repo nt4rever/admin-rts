@@ -13,7 +13,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "src/hooks/use-auth";
 import { Layout as AuthLayout } from "src/layouts/auth/layout";
 import * as Yup from "yup";
@@ -55,6 +55,17 @@ const Page = () => {
   const handleMethodChange = useCallback((event, value) => {
     setMethod(value);
   }, []);
+
+  useEffect(() => {
+    try {
+      let isAuthenticated = window.localStorage.getItem("authenticated") === "true";
+      if (isAuthenticated) {
+        router.push("/");
+      }
+    } catch (error) {
+
+    }
+  }, [router])
 
   return (
     <>
@@ -144,11 +155,11 @@ const Page = () => {
   );
 };
 
-export const getServerSideProps = async (ctx) => {
+export const getStaticProps = async (ctx) => {
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale || "vi", ['common', 'validation', 'message'])),
-    },
+      ...(await serverSideTranslations(ctx.locale || 'vi'))
+    }
   };
 };
 

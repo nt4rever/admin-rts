@@ -3,6 +3,7 @@ import { Box, Container, Stack, Typography } from '@mui/material';
 import { SettingsNotifications } from 'src/sections/settings/settings-notifications';
 import { SettingsPassword } from 'src/sections/settings/settings-password';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const Page = () => (
   <>
@@ -30,6 +31,14 @@ const Page = () => (
     </Box>
   </>
 );
+
+export const getStaticProps = async (ctx) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(ctx.locale || 'vi'))
+    }
+  };
+};
 
 Page.getLayout = (page) => (
   <DashboardLayout>

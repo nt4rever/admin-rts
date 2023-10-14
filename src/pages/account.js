@@ -63,7 +63,7 @@ const Page = () => {
   );
 };
 
-export const getServerSideProps = async (ctx) => {
+export const getStaticProps = async (ctx) => {
   return {
     props: {
       ...(await serverSideTranslations(ctx.locale || 'vi'))
