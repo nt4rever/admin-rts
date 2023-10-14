@@ -9,7 +9,8 @@ axiosClient.interceptors.request.use(
   function (config) {
     if (typeof window !== "undefined") {
       const accessToken = window.localStorage.getItem("accessToken");
-      if (accessToken) {
+      console.log(config.headers["Authorization"])
+      if (accessToken && !config.headers["Authorization"]) {
         config.headers["Authorization"] = `Bearer ${accessToken}`;
       }
     }

@@ -3,11 +3,10 @@
   "login": "Login",
   "phone-number": "Phone Number",
   "coming-soon": "Coming Soon...",
-  "login-validation": {
-    "email-valid": "Must be a valid email",
-    "email-required": "Email is required",
-    "password-required": "Password is required"
-  },
-  "ATH_0001": "Wrong credentials",
-  "Unauthorized": "Unauthorized"
+  "account": "Account",
+  "upload-picture": "Upload picture",
+  "email": "Email",
+  "password": "Password",
+  "forgot-password": "Forgot password",
+  "welcome-to": "Welcome to"
 }

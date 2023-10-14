@@ -1,0 +1,7 @@
+{
+  "login": {
+    "email-valid": "Email không hợp lệ",
+    "email-required": "Email là bắt buộc",
+    "password-required": "Password là bắt buộc"
+  }
+}

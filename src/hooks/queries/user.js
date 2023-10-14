@@ -8,6 +8,6 @@ import { useQuery } from "@tanstack/react-query";
  * @example useGetMe({ enabled: false })
  * @returns 
  */
-export const useGetMe = (props) => useQuery(["me"], userService.me, {
+export const useGetMe = (props = {}) => useQuery(["me"], userService.me, {
   ...props,
 });

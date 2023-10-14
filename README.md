@@ -51,3 +51,5 @@ material-kit-react
 			├── login.js
 			└── register.js
 ```
+## Document
+- [message file](https://github.com/nt4rever/hmmmm/blob/main/src/constraints/error-dictionary.constraint.ts)
