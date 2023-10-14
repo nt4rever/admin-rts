@@ -43,7 +43,7 @@ export const AuthGuard = (props) => {
         setChecked(true);
       }
     },
-    [isAuthenticated, router.isReady, isInitiating]
+    [isAuthenticated, router.isReady, isInitiating, router]
   );
 
   if (!checked) {

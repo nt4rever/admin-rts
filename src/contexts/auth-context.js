@@ -30,6 +30,13 @@ const handlers = {
     };
   },
   [HANDLERS.SIGN_OUT]: (state) => {
+    try {
+      localStorage.removeItem("authenticated");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+    } catch (error) {
+      console.log(error);
+    }
     return {
       ...state,
       isAuthenticated: false,
