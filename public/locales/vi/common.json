@@ -1,3 +1,12 @@
 {
-  "page_not_found": "404: Không tìm thấy trang"
+  "page_not_found": "404: Không tìm thấy trang",
+  "login": "Đăng nhập",
+  "phone-number": "Số điện thoại",
+  "coming-soon": "Coming Soon...",
+  "account": "Tài khoản",
+  "upload-picture": "Tải lên ảnh đại diện",
+  "email": "Email",
+  "password": "Mật khẩu",
+  "forgot-password": "Quên mật khẩu",
+  "welcome-to": "Chào mừng đến với"
 }

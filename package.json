@@ -1,10 +1,10 @@
 {
-  "name": "material-kit-react",
-  "version": "3.0.0",
-  "author": "Devias",
-  "licence": "MIT",
-  "homepage": "https://devias.io",
-  "private": false,
+  "name": "rts-admin",
+  "version": "1.0.0",
+  "author": "tannnguci",
+  "license": "MIT",
+  "homepage": "https://admin-rts.vercel.app",
+  "private": true,
   "scripts": {
     "dev": "next",
     "build": "next build",

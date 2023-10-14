@@ -47,7 +47,7 @@ const Page = () => {
               />
             </Box>
             <Typography align="center" sx={{ mb: 3 }} variant="h3">
-              {t("page_not_found")}
+              {t("common.page_not_found")}
             </Typography>
             <Typography align="center" color="text.secondary" variant="body1">
               You either tried some shady route or you came here by mistake. Whichever it is, try

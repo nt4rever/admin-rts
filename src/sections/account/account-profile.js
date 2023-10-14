@@ -5,65 +5,72 @@ import {
   Card,
   CardActions,
   CardContent,
-  Divider,
+  Divider, Skeleton,
   Typography
 } from '@mui/material';
+import { useTranslation } from 'next-i18next';
 
-const user = {
-  avatar: '/assets/avatars/avatar-anika-visser.png',
-  city: 'Los Angeles',
-  country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Anika Visser',
-  timezone: 'GTM-7'
-};
+export const AccountProfile = ({ user }) => {
+  const { t } = useTranslation()
 
-export const AccountProfile = () => (
-  <Card>
-    <CardContent>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-        <Avatar
-          src={user.avatar}
+  return (
+    <Card>
+      <CardContent>
+        <Box
           sx={{
-            height: 80,
-            mb: 2,
-            width: 80
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column'
           }}
-        />
-        <Typography
-          gutterBottom
-          variant="h5"
         >
-          {user.name}
-        </Typography>
-        <Typography
-          color="text.secondary"
-          variant="body2"
+          <Avatar
+            src={user.avatar}
+            sx={{
+              height: 80,
+              mb: 2,
+              width: 80
+            }}
+          />
+          <Typography
+            gutterBottom
+            variant="h5"
+          >
+            {user.first_name} {user.last_name}
+          </Typography>
+          <Typography
+            color="text.secondary"
+            variant="body2"
+          >
+            {user.address}
+          </Typography>
+          <Typography
+            color="text.secondary"
+            variant="body2"
+          >
+            {user.email}
+          </Typography>
+        </Box>
+      </CardContent>
+      <Divider />
+      <CardActions>
+        <Button
+          fullWidth
+          variant="text"
         >
-          {user.city} {user.country}
-        </Typography>
-        <Typography
-          color="text.secondary"
-          variant="body2"
-        >
-          {user.timezone}
-        </Typography>
-      </Box>
-    </CardContent>
-    <Divider />
-    <CardActions>
-      <Button
-        fullWidth
-        variant="text"
-      >
-        Upload picture
-      </Button>
-    </CardActions>
-  </Card>
-);
+          {t('common.upload-picture')}
+        </Button>
+      </CardActions>
+    </Card>
+  );
+}
+
+export const AccountProfileSkeleton = () => {
+  return (
+    <div>
+      <Skeleton variant="text" animation="wave" sx={{ fontSize: '2rem' }} />
+      <Skeleton variant="circular" width={40} height={40} />
+      <Skeleton variant="rectangular" height={60} sx={{ marginY: 2 }} />
+      <Skeleton variant="rounded" height={60} />
+    </div>
+  )
+}
