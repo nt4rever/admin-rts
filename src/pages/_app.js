@@ -26,13 +26,13 @@ const App = (props) => {
 
   const theme = createTheme();
 
-  const [queryClient] = useState(()=> new QueryClient(config))
+  const [queryClient] = useState(() => new QueryClient(config))
 
   return (
     <CacheProvider value={emotionCache}>
       <Head>
         <title>
-          Devias Kit
+          RTS Admin
         </title>
         <meta
           name="viewport"

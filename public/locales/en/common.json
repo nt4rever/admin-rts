@@ -1,3 +1,13 @@
 {
-  "page_not_found": "404: The page you are looking for isn’t here"
+  "page_not_found": "404: The page you are looking for isn’t here",
+  "login": "Login",
+  "phone-number": "Phone Number",
+  "coming-soon": "Coming Soon...",
+  "login-validation": {
+    "email-valid": "Must be a valid email",
+    "email-required": "Email is required",
+    "password-required": "Password is required"
+  },
+  "ATH_0001": "Wrong credentials",
+  "Unauthorized": "Unauthorized"
 }

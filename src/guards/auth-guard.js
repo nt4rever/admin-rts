@@ -6,7 +6,7 @@ import { useAuthContext } from 'src/contexts/auth-context';
 export const AuthGuard = (props) => {
   const { children } = props;
   const router = useRouter();
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, isInitiating } = useAuthContext();
   const ignore = useRef(false);
   const [checked, setChecked] = useState(false);
 
@@ -16,6 +16,10 @@ export const AuthGuard = (props) => {
 
   useEffect(
     () => {
+      if (isInitiating) {
+        return;
+      }
+
       if (!router.isReady) {
         return;
       }
@@ -39,7 +43,7 @@ export const AuthGuard = (props) => {
         setChecked(true);
       }
     },
-    [router.isReady]
+    [isAuthenticated, router.isReady, isInitiating]
   );
 
   if (!checked) {

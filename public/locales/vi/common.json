@@ -1,3 +1,17 @@
 {
-  "page_not_found": "404: Không tìm thấy trang"
+  "page_not_found": "404: Không tìm thấy trang",
+  "login": "Đăng nhập",
+  "phone-number": "Số điện thoại",
+  "coming-soon": "Coming Soon...",
+  "login-validation": {
+    "email-valid": "Email không hợp lệ",
+    "email-required": "Email là bắt buộc",
+    "password-required": "Password là bắt buộc"
+  },
+  "email": "Email",
+  "password": "Mật khẩu",
+  "forgot-password": "Quên mật khẩu",
+  "welcome-to": "Chào mừng đến với",
+  "ATH_0001": "Tài khoản, mật khẩu không chính xác",
+  "Unauthorized": "Xác thực thất bại"
 }
