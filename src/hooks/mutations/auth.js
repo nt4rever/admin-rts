@@ -5,3 +5,7 @@ export const useLoginMutation = () =>
   useMutation({
     mutationFn: authService.login,
   });
+
+export const useLogoutMutation = () => useMutation({
+  mutationFn: authService.logout
+})

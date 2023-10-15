@@ -34,7 +34,10 @@ const Page = () => {
         .email(t("validation.login.email-valid"))
         .max(255)
         .required(t("validation.login.email-required")),
-      password: Yup.string().max(255).required(t("validation.login.password-required")),
+      password: Yup.string()
+        .min(6, t('validation.login.password-min-length'))
+        .max(20, t('validation.login.password-max-length'))
+        .required(t("validation.login.password-required")),
     }),
     onSubmit: async (values, helpers) => {
       try {
@@ -134,11 +137,6 @@ const Page = () => {
                 <Button fullWidth size="large" sx={{ mt: 3 }}>
                   {t("common.forgot-password")}
                 </Button>
-                {/* <Alert color="primary" severity="info" sx={{ mt: 3 }}>
-                  <div>
-                    You can use <b>demo@devias.io</b> and password <b>Password123!</b>
-                  </div>
-                </Alert> */}
               </form>
             )}
             {method === "phoneNumber" && (
