@@ -1,4 +1,5 @@
 import { useProfileMutation } from "@/hooks/mutations/user";
+import { notifications } from "@mantine/notifications";
 import {
   Box,
   Button,
@@ -44,7 +45,7 @@ const genderItems = genders.map((gender, index) => (
 ));
 
 export const AccountProfileDetails = ({ user }) => {
-  const profileMutation = useProfileMutation()
+  const profileMutation = useProfileMutation();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
 
@@ -68,13 +69,22 @@ export const AccountProfileDetails = ({ user }) => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        await profileMutation.mutateAsync(values)
-        queryClient.invalidateQueries(['me'])
+        await profileMutation.mutateAsync(values);
+        queryClient.invalidateQueries(["me"]);
+        notifications.show({
+          title: "Your profile update successfully",
+          color: 'green',
+          autoClose: 2000
+        });
       } catch (err) {
         if (isAxiosError(err)) {
           helpers.setStatus({ success: false });
           helpers.setSubmitting(false);
         }
+        notifications.show({
+          title: "Your profile update failed",
+          color: 'red',
+        });
       }
     },
   });
@@ -128,7 +138,9 @@ export const AccountProfileDetails = ({ user }) => {
                   name="date_of_birth"
                   inputFormat="dd/MM/yyyy"
                   value={formik.values.date_of_birth}
-                  onChange={(value) => formik.setFieldValue("date_of_birth", value.toISOString(), true)}
+                  onChange={(value) =>
+                    formik.setFieldValue("date_of_birth", value.toISOString(), true)
+                  }
                   renderInput={(params) => <TextField {...params} fullWidth />}
                 />
               </Grid>
@@ -144,10 +156,11 @@ export const AccountProfileDetails = ({ user }) => {
                   value={formik.values.address}
                 />
               </Grid>
-              <Grid xs={12} md={6} >
+              <Grid xs={12} md={6}>
                 <FormControl fullWidth variant="filled">
                   <InputLabel id="gender">Gender</InputLabel>
-                  <Select label="Age"
+                  <Select
+                    label="Age"
                     value={formik.values.gender}
                     onChange={formik.handleChange}
                     name="gender"
@@ -166,7 +179,9 @@ export const AccountProfileDetails = ({ user }) => {
               {formik.errors.submit}
             </Typography>
           )}
-          <Button variant="contained" type="submit">Save details</Button>
+          <Button variant="contained" type="submit">
+            Save details
+          </Button>
         </CardActions>
       </Card>
     </form>

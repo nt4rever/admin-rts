@@ -1,3 +1,4 @@
+
 import DevTools from '@/components/Devtools/Devtools';
 import { config } from '@/libs/react-query-config';
 import { CacheProvider } from '@emotion/react';
@@ -10,10 +11,14 @@ import { appWithTranslation } from 'next-i18next';
 import Head from 'next/head';
 import { useState } from "react";
 import 'simplebar-react/dist/simplebar.min.css';
+import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
 import { AuthProvider } from 'src/contexts/auth-context';
 import { useNProgress } from 'src/hooks/use-nprogress';
 import { createTheme } from 'src/theme';
 import { createEmotionCache } from 'src/utils/create-emotion-cache';
+import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -40,17 +45,20 @@ const App = (props) => {
         />
       </Head>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <AuthProvider>
-              <ThemeProvider theme={theme}>
-                <CssBaseline />
-                {getLayout(<Component {...pageProps} />)}
-              </ThemeProvider>
-            </AuthProvider>
-            <DevTools />
-          </Hydrate>
-        </QueryClientProvider>
+        <MantineProvider>
+          <Notifications position='top-center' zIndex={9999} />
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={pageProps.dehydratedState}>
+              <AuthProvider>
+                <ThemeProvider theme={theme}>
+                  <CssBaseline />
+                  {getLayout(<Component {...pageProps} />)}
+                </ThemeProvider>
+              </AuthProvider>
+              <DevTools />
+            </Hydrate>
+          </QueryClientProvider>
+        </MantineProvider>
       </LocalizationProvider>
     </CacheProvider>
   );

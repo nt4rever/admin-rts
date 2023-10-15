@@ -2,6 +2,7 @@
   "i18n-ally.localesPaths": ["public/locales"],
   "i18n-ally.namespace": true,
   "cSpell.words": [
-    "formik"
+    "formik",
+    "Mantine"
   ]
 }
