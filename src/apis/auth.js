@@ -11,11 +11,7 @@ const login = async ({ email, password }) => {
 };
 
 const logout = async () => {
-  await axiosClient.get(AUTH_ENDPOINT.logout, {
-    params: {
-      all_device: true
-    }
-  })
+  await axiosClient.get(AUTH_ENDPOINT.logout)
 }
 
 export const authService = { login, logout };
