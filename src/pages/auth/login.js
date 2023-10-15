@@ -1,12 +1,6 @@
-import {
-  Box,
-  Button,
-  Stack,
-  Tab,
-  Tabs,
-  TextField,
-  Typography
-} from "@mui/material";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useAuthStore } from "@/store/useAuthStore";
+import { Box, Button, Stack, Tab, Tabs, TextField, Typography } from "@mui/material";
 import { isAxiosError } from "axios";
 import { useFormik } from "formik";
 import { useTranslation } from "next-i18next";
@@ -19,10 +13,18 @@ import { Layout as AuthLayout } from "src/layouts/auth/layout";
 import * as Yup from "yup";
 
 const Page = () => {
+  const { isAuthenticated } = useAuthStore();
   const { t } = useTranslation();
   const router = useRouter();
   const auth = useAuth();
   const [method, setMethod] = useState("email");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace({ pathname: "/" })
+    }
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -35,8 +37,8 @@ const Page = () => {
         .max(255)
         .required(t("validation.login.email-required")),
       password: Yup.string()
-        .min(6, t('validation.login.password-min-length'))
-        .max(20, t('validation.login.password-max-length'))
+        .min(6, t("validation.login.password-min-length"))
+        .max(20, t("validation.login.password-max-length"))
         .required(t("validation.login.password-required")),
     }),
     onSubmit: async (values, helpers) => {
@@ -45,10 +47,10 @@ const Page = () => {
         router.push("/");
       } catch (err) {
         if (isAxiosError(err)) {
-          const data = err.response.data
-          const { message } = data
+          const data = err.response.data;
+          const { message } = data;
           helpers.setStatus({ success: false });
-          helpers.setErrors({ submit: t(message, { ns: 'message' }) });
+          helpers.setErrors({ submit: t(message, { ns: "message" }) });
           helpers.setSubmitting(false);
         }
       }
@@ -58,17 +60,6 @@ const Page = () => {
   const handleMethodChange = useCallback((event, value) => {
     setMethod(value);
   }, []);
-
-  useEffect(() => {
-    try {
-      let isAuthenticated = window.localStorage.getItem("authenticated") === "true";
-      if (isAuthenticated) {
-        router.push("/");
-      }
-    } catch (error) {
-
-    }
-  }, [router])
 
   return (
     <>
@@ -156,8 +147,8 @@ const Page = () => {
 export const getStaticProps = async (ctx) => {
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale || 'vi'))
-    }
+      ...(await serverSideTranslations(ctx.locale || "vi")),
+    },
   };
 };
 
