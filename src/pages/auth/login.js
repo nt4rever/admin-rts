@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useAuthStore } from "@/store/useAuthStore";
+import { getAccessToken } from "@/utils/storage";
 import { Box, Button, Stack, Tab, Tabs, TextField, Typography } from "@mui/material";
 import { isAxiosError } from "axios";
 import { useFormik } from "formik";
@@ -13,16 +14,19 @@ import { Layout as AuthLayout } from "src/layouts/auth/layout";
 import * as Yup from "yup";
 
 const Page = () => {
-  const { isAuthenticated } = useAuthStore();
   const { t } = useTranslation();
   const router = useRouter();
   const auth = useAuth();
   const [method, setMethod] = useState("email");
 
   useEffect(() => {
-    if (isAuthenticated) {
-      router.replace({ pathname: "/" })
-    }
+    const timeoutId = setTimeout(() => {
+      const token = getAccessToken();
+      if (token) {
+        router.push("/");
+      }
+    }, 200);
+    return () => clearTimeout(timeoutId);
   }, []);
 
   const formik = useFormik({
