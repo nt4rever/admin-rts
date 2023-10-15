@@ -1,4 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { ROLES } from "@/constants/role";
+import routeConfig from "@/constants/route-config";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
@@ -11,21 +13,24 @@ export const AuthGuard = (props) => {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    if (!router.isReady || isLoading) {
-      return;
-    }
+    if (!router.isReady || isLoading) return;
 
-    if (!isAuthenticated) {
+    // console.log(">>>>>>>CHECK AUTH & ROLE");
+    if (!isAuthenticated || !user) {
+      // console.log("#####REDIRECT to /auth/login page");
       router
         .replace({
           pathname: "/auth/login",
           query: router.asPath !== "/" ? { continueUrl: router.asPath } : undefined,
         })
         .catch(console.error);
+    } else if (!routeConfig[user?.role || "auth"][router.pathname]) {
+      // console.log("#####REDIRECT to /403 page");
+      router.replace("403");
     } else {
       setChecked(true);
     }
-  }, [isAuthenticated, router.isReady, isLoading]);
+  }, [isAuthenticated, isLoading, router.isReady, router.pathname]);
 
   if (!checked) {
     return null;
