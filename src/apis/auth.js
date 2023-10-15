@@ -2,6 +2,7 @@ import axiosClient from "@/libs/axios";
 
 const AUTH_ENDPOINT = {
   login: "/auth/sign-in-admin",
+  logout: "/auth/logout"
 };
 
 const login = async ({ email, password }) => {
@@ -9,4 +10,12 @@ const login = async ({ email, password }) => {
   return data;
 };
 
-export const authService = { login };
+const logout = async () => {
+  await axiosClient.get(AUTH_ENDPOINT.logout, {
+    params: {
+      all_device: true
+    }
+  })
+}
+
+export const authService = { login, logout };

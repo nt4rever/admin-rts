@@ -2,6 +2,7 @@ import axiosClient from "@/libs/axios";
 
 const USER_ENDPOINT = {
   me: "/users/me",
+  updateProfile: "/users/profile",
 };
 
 const me = async () => {
@@ -9,4 +10,8 @@ const me = async () => {
   return data;
 };
 
-export const userService = { me };
+const updateProfile = async (dto) => {
+  await axiosClient.patch(USER_ENDPOINT.updateProfile, dto);
+}
+
+export const userService = { me, updateProfile };

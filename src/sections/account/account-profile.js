@@ -41,7 +41,7 @@ export const AccountProfile = ({ user }) => {
             color="text.secondary"
             variant="body2"
           >
-            {user.address}
+            {user.role}
           </Typography>
           <Typography
             color="text.secondary"

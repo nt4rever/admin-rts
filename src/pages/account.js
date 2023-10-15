@@ -52,7 +52,7 @@ const Page = () => {
                   md={6}
                   lg={8}
                 >
-                  <AccountProfileDetails />
+                  {data ? <AccountProfileDetails user={data} /> : <AccountProfileSkeleton />}
                 </Grid>
               </Grid>
             </div>

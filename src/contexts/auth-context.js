@@ -1,4 +1,4 @@
-import { useLoginMutation } from "@/hooks/mutations/auth";
+import { useLoginMutation, useLogoutMutation } from "@/hooks/mutations/auth";
 import { useGetMe } from "@/hooks/queries/user";
 import PropTypes from "prop-types";
 import { createContext, useContext, useEffect, useReducer, useRef } from "react";
@@ -56,9 +56,8 @@ export const AuthProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const initialized = useRef(false);
   const loginMutation = useLoginMutation();
-  useGetMe({
-    enabled: state.isAuthenticated
-  })
+  const logoutMutation = useLogoutMutation();
+  useGetMe({ enabled: state.isAuthenticated })
 
   const initialize = async () => {
     // Prevent from calling twice in development mode with React.StrictMode enabled
@@ -106,10 +105,16 @@ export const AuthProvider = (props) => {
     });
   };
 
-  const signOut = () => {
-    dispatch({
-      type: HANDLERS.SIGN_OUT,
-    });
+  const signOut = async () => {
+    try {
+      await logoutMutation.mutateAsync();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch({
+        type: HANDLERS.SIGN_OUT,
+      });
+    }
   };
 
   return (
