@@ -1,108 +1,39 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useLoginMutation, useLogoutMutation } from "@/hooks/mutations/auth";
 import { useGetMe } from "@/hooks/queries/user";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useRouter } from "next/router";
+import { createContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import { createContext, useContext, useEffect, useReducer, useRef } from "react";
+import { clearTokens, getAccessToken, setTokens } from "@/utils/storage";
 
-const HANDLERS = {
-  INITIALIZE: "INITIALIZE",
-  SIGN_IN: "SIGN_IN",
-  SIGN_OUT: "SIGN_OUT",
-};
+export const AuthContext = createContext();
 
-const initialState = {
-  isAuthenticated: false,
-  isInitiating: true,
-};
-
-const handlers = {
-  [HANDLERS.INITIALIZE]: (state, action) => {
-    const isAuthenticated = action.payload;
-    return {
-      ...state,
-      isAuthenticated,
-      isInitiating: false,
-    };
-  },
-  [HANDLERS.SIGN_IN]: (state) => {
-    return {
-      ...state,
-      isAuthenticated: true,
-    };
-  },
-  [HANDLERS.SIGN_OUT]: (state) => {
-    try {
-      localStorage.removeItem("authenticated");
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-    } catch (error) {
-      console.log(error);
-    }
-    return {
-      ...state,
-      isAuthenticated: false,
-    };
-  },
-};
-
-const reducer = (state, action) =>
-  handlers[action.type] ? handlers[action.type](state, action) : state;
-
-// The role of this context is to propagate authentication state through the App tree.
-
-export const AuthContext = createContext({ undefined });
-
-export const AuthProvider = (props) => {
-  const { children } = props;
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const initialized = useRef(false);
+export const AuthProvider = ({ children }) => {
+  const router = useRouter();
+  const { isAuthenticated, init, login, logout, setUser } = useAuthStore();
   const loginMutation = useLoginMutation();
   const logoutMutation = useLogoutMutation();
-  useGetMe({ enabled: state.isAuthenticated })
 
-  const initialize = async () => {
-    // Prevent from calling twice in development mode with React.StrictMode enabled
-    if (initialized.current) {
-      return;
-    }
-
-    initialized.current = true;
-
-    let isAuthenticated = false;
-
-    try {
-      isAuthenticated = window.localStorage.getItem("authenticated") === "true";
-    } catch (err) {
-      console.error(err);
-    }
-
-    dispatch({
-      type: HANDLERS.INITIALIZE,
-      payload: isAuthenticated,
-    });
-  };
-
-  useEffect(
-    () => {
-      initialize();
+  useGetMe({
+    enabled: isAuthenticated,
+    onSuccess: (data) => {
+      setUser(data);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
+  });
+
+  useEffect(() => {
+    const loadAccessToken = async () => {
+      const accessToken = getAccessToken();
+      init({ isLoading: false, isAuthenticated: !!accessToken });
+    };
+    loadAccessToken();
+  }, []);
 
   const signIn = async (email, password) => {
-    const data = await loginMutation.mutateAsync({ email, password });
-    const { accessToken, refreshToken } = data;
-    try {
-      window.localStorage.setItem("authenticated", "true");
-      window.localStorage.setItem("accessToken", accessToken);
-      window.localStorage.setItem("refreshToken", refreshToken);
-    } catch (err) {
-      console.error(err);
-    }
-
-    dispatch({
-      type: HANDLERS.SIGN_IN,
-    });
+    const { accessToken, refreshToken } = await loginMutation.mutateAsync({ email, password });
+    setTokens({ accessToken, refreshToken });
+    login();
   };
 
   const signOut = async () => {
@@ -111,16 +42,15 @@ export const AuthProvider = (props) => {
     } catch (error) {
       console.log(error);
     } finally {
-      dispatch({
-        type: HANDLERS.SIGN_OUT,
-      });
+      logout();
+      clearTokens();
+      router.replace({ pathname: "/auth/login" }).catch(console.error);
     }
   };
 
   return (
     <AuthContext.Provider
       value={{
-        ...state,
         signIn,
         signOut,
       }}
@@ -133,7 +63,3 @@ export const AuthProvider = (props) => {
 AuthProvider.propTypes = {
   children: PropTypes.node,
 };
-
-export const AuthConsumer = AuthContext.Consumer;
-
-export const useAuthContext = () => useContext(AuthContext);

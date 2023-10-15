@@ -1,3 +1,4 @@
+import { clearTokens, getAccessToken, getRefreshToken, setTokens } from "@/utils/storage";
 import axios, { isAxiosError } from "axios";
 
 const axiosClient = axios.create({
@@ -7,11 +8,9 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
   function (config) {
-    if (typeof window !== "undefined") {
-      const accessToken = window.localStorage.getItem("accessToken");
-      if (accessToken && !config.headers["Authorization"]) {
-        config.headers["Authorization"] = `Bearer ${accessToken}`;
-      }
+    const accessToken = getAccessToken();
+    if (accessToken && !config.headers["Authorization"]) {
+      config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -28,30 +27,29 @@ axiosClient.interceptors.response.use(
       if (err.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
         try {
-          if (typeof window !== "undefined") {
-            const refreshTokenLocal = localStorage.getItem("refreshToken");
-            if (refreshTokenLocal) {
-              const res = await axios.post(
-                process.env.NEXT_PUBLIC_API_URL + "/auth/refresh",
-                {},
-                {
-                  headers: {
-                    Authorization: `Bearer ${refreshTokenLocal}`,
-                  },
-                }
-              );
-              const { accessToken } = res.data;
-              localStorage.setItem("accessToken", accessToken);
-            }
+          const refreshTokenLocal = getRefreshToken();
+          if (refreshTokenLocal) {
+            const res = await axios.post(
+              process.env.NEXT_PUBLIC_API_URL + "/auth/refresh",
+              {},
+              {
+                headers: {
+                  Authorization: `Bearer ${refreshTokenLocal}`,
+                },
+              }
+            );
+            const { accessToken } = res.data;
+            setTokens({ accessToken });
+          } else {
+            clearTokens();
+            window.location.href = "/auth/login";
           }
           return axiosClient(originalConfig);
         } catch (_error) {
           if (isAxiosError(_error)) {
             if (_error.response.status === 401) {
-              localStorage.removeItem("authenticated");
-              localStorage.removeItem("accessToken");
-              localStorage.removeItem("refreshToken");
-              window.location.href = "/";
+              clearTokens();
+              window.location.href = "/auth/login";
             }
           }
           return Promise.reject(_error);
