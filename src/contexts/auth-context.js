@@ -3,7 +3,7 @@ import { useLoginMutation, useLogoutMutation } from "@/hooks/mutations/auth";
 import { useGetMe } from "@/hooks/queries/user";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "next/router";
-import { createContext, useEffect } from "react";
+import { createContext, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { clearTokens, getAccessToken, setTokens } from "@/utils/storage";
 
@@ -11,21 +11,25 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
-  const { isAuthenticated, init, login, logout, setUser } = useAuthStore();
+  const { isAuthenticated, init, logout } = useAuthStore();
   const loginMutation = useLoginMutation();
   const logoutMutation = useLogoutMutation();
-
-  useGetMe({
-    enabled: isAuthenticated,
-    onSuccess: (data) => {
-      setUser(data);
-    },
-  });
+  const ref = useRef(false);
+  const getMeQuery = useGetMe({ enabled: !!isAuthenticated });
 
   useEffect(() => {
+    if (ref.current) return;
+    ref.current = true;
+
+    // console.log("=====RENDER APP======");
+
     const loadAccessToken = async () => {
       const accessToken = getAccessToken();
-      init({ isLoading: false, isAuthenticated: !!accessToken });
+      let user = undefined;
+      if (accessToken) {
+        user = (await getMeQuery.refetch()).data;
+      }
+      init({ isLoading: false, isAuthenticated: !!accessToken, user });
     };
     loadAccessToken();
   }, []);
@@ -33,7 +37,8 @@ export const AuthProvider = ({ children }) => {
   const signIn = async (email, password) => {
     const { accessToken, refreshToken } = await loginMutation.mutateAsync({ email, password });
     setTokens({ accessToken, refreshToken });
-    login();
+    const { data: user } = await getMeQuery.refetch({ throwOnError: true });
+    init({ isLoading: false, isAuthenticated: true, user });
   };
 
   const signOut = async () => {
@@ -44,7 +49,6 @@ export const AuthProvider = ({ children }) => {
     } finally {
       logout();
       clearTokens();
-      router.replace({ pathname: "/auth/login" }).catch(console.error);
     }
   };
 

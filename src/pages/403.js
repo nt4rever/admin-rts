@@ -11,7 +11,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>404 | RTS Admin</title>
+        <title>403 | RTS Admin</title>
       </Head>
       <Box
         component="main"
