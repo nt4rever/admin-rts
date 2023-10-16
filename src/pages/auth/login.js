@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "src/hooks/use-auth";
 import { Layout as AuthLayout } from "src/layouts/auth/layout";
@@ -17,12 +17,15 @@ const Page = () => {
   const router = useRouter();
   const auth = useAuth();
   const [method, setMethod] = useState("email");
+  const {
+    query: { continueUrl: continueUrl },
+  } = router;
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       const token = getAccessToken();
       if (token) {
-        router.push("/");
+        router.push(continueUrl || "/");
       }
     }, 200);
     return () => clearTimeout(timeoutId);
@@ -47,7 +50,7 @@ const Page = () => {
     onSubmit: async (values, helpers) => {
       try {
         await auth.signIn(values.email, values.password);
-        router.push("/");
+        router.push(continueUrl || "/");
       } catch (err) {
         if (isAxiosError(err)) {
           const data = err.response.data;
