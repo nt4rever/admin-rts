@@ -2,7 +2,8 @@ export const RouteNames = {
   login: "/auth/login",
   index: "/",
   account: "/account",
-  customers: "/customers",
+  areas: "/areas",
+  managers: "/managers",
   companies: "/companies",
   settings: "/settings",
 };

@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ROLES } from "@/constants/role";
 import routeConfig from "@/constants/route-config";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "next/router";

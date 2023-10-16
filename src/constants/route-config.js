@@ -10,9 +10,8 @@ const routeConfig = {
     default: RouteNames.index,
     [RouteNames.index]: RouteNames.index,
     [RouteNames.account]: RouteNames.account,
-    [RouteNames.customers]: RouteNames.customers,
-    [RouteNames.companies]: RouteNames.companies,
-    [RouteNames.settings]: RouteNames.settings,
+    [RouteNames.managers]: RouteNames.managers,
+    [RouteNames.areas]: RouteNames.areas,
   },
   [ROLES.AreaManager]: {
     default: RouteNames.index,

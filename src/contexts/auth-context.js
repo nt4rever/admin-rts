@@ -2,7 +2,6 @@
 import { useLoginMutation, useLogoutMutation } from "@/hooks/mutations/auth";
 import { useGetMe } from "@/hooks/queries/user";
 import { useAuthStore } from "@/store/useAuthStore";
-import { useRouter } from "next/router";
 import { createContext, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { clearTokens, getAccessToken, setTokens } from "@/utils/storage";
@@ -10,7 +9,6 @@ import { clearTokens, getAccessToken, setTokens } from "@/utils/storage";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const router = useRouter();
   const { isAuthenticated, init, logout } = useAuthStore();
   const loginMutation = useLoginMutation();
   const logoutMutation = useLogoutMutation();
