@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import FullPageLoading from "@/components/Loading/FullPageLoading";
 import routeConfig from "@/constants/route-config";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useRouter } from "next/router";
@@ -32,7 +33,7 @@ export const AuthGuard = (props) => {
   }, [isAuthenticated, isLoading, router.isReady, router.pathname]);
 
   if (!checked) {
-    return null;
+    return <FullPageLoading />;
   }
 
   return children;
