@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { ROLES_ARRAY } from "@/constants/role";
 import { useLoginMutation, useLogoutMutation } from "@/hooks/mutations/auth";
 import { useGetMe } from "@/hooks/queries/user";
 import { useAuthStore } from "@/store/useAuthStore";
-import { createContext, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
 import { clearTokens, getAccessToken, setTokens } from "@/utils/storage";
+import PropTypes from "prop-types";
+import { createContext, useEffect, useRef } from "react";
 
 export const AuthContext = createContext();
 
@@ -26,6 +27,10 @@ export const AuthProvider = ({ children }) => {
       let user = undefined;
       if (accessToken) {
         user = (await getMeQuery.refetch()).data;
+        if (!ROLES_ARRAY.includes(user?.role)) {
+          user = undefined;
+          clearTokens();
+        }
       }
       init({ isLoading: false, isAuthenticated: !!accessToken, user });
     };
