@@ -11,6 +11,7 @@ const routeConfig = {
     [RouteNames.index]: RouteNames.index,
     [RouteNames.account]: RouteNames.account,
     [RouteNames.managers]: RouteNames.managers,
+    [RouteNames.managersEdit]: RouteNames.managersEdit,
     [RouteNames.areas]: RouteNames.areas,
   },
   [ROLES.AreaManager]: {

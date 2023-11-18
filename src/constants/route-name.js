@@ -4,6 +4,7 @@ export const RouteNames = {
   account: "/account",
   areas: "/areas",
   managers: "/managers",
+  managersEdit: "/managers/[id]",
   companies: "/companies",
   settings: "/settings",
 };
