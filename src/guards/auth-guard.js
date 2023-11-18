@@ -26,7 +26,7 @@ export const AuthGuard = (props) => {
         .catch(console.error);
     } else if (!routeConfig[user?.role || "auth"][router.pathname]) {
       // console.log("#####REDIRECT to /403 page");
-      router.replace("403");
+      router.replace("/403");
     } else {
       setChecked(true);
     }

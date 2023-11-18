@@ -16,7 +16,7 @@ import {
 import { format } from "date-fns";
 import NextLink from "next/link";
 import PropTypes from "prop-types";
-import { ArrowRight, Edit3 } from "react-feather";
+import { ArrowRight } from "react-feather";
 import { Scrollbar } from "src/components/scrollbar";
 
 export const MangerTable = (props) => {
@@ -61,21 +61,6 @@ export const MangerTable = (props) => {
                     <TableCell>{updatedAt}</TableCell>
                     <TableCell>
                       <Stack direction="row" gap={1}>
-                        <ButtonBase
-                          title={`Detail`}
-                          sx={{
-                            color: "rgb(108, 115, 127)",
-                            p: 1,
-                            ":hover": {
-                              background: "rgba(108, 115, 127, 0.04)",
-                              borderRadius: 8,
-                            },
-                          }}
-                          href={`/managers/${user.id}`}
-                          component={NextLink}
-                        >
-                          <Edit3 size={22} />
-                        </ButtonBase>
                         <ButtonBase
                           title={`Detail`}
                           sx={{
