@@ -1,8 +1,6 @@
 {
   "i18n-ally.localesPaths": ["public/locales"],
   "i18n-ally.namespace": true,
-  "cSpell.words": [
-    "formik",
-    "Mantine"
-  ]
+  "cSpell.words": ["formik", "Mantine"],
+  "i18n-ally.keystyle": "nested"
 }
