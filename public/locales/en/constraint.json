@@ -3,5 +3,12 @@
     "MALE": "Male",
     "FEMALE": "Female",
     "OTHER": "Other"
+  },
+  "nav": {
+    "Overview": "Overview",
+    "Areas": "Areas",
+    "Managers": "Managers",
+    "Account": "Account",
+    "Volunteers": "Volunteers"
   }
 }

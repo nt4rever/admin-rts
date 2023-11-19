@@ -6,6 +6,9 @@ export const RouteNames = {
   managers: "/managers",
   managersEdit: "/managers/[id]",
   managersAdd: "/managers/add",
+  volunteers: "/volunteers",
+  volunteersEdit: "/volunteers/[id]",
+  volunteersAdd: "/volunteers/add",
   companies: "/companies",
   settings: "/settings",
 };

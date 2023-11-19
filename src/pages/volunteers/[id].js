@@ -1,4 +1,5 @@
 import { managerService } from "@/apis/manager";
+import { volunteerService } from "@/apis/volunteer";
 import { CardItem } from "@/components/Card/card-item";
 import ComponentLoading from "@/components/Loading/ComponentLoading";
 import { getFullName } from "@/utils/string";
@@ -33,15 +34,15 @@ const Page = () => {
   const [status, setStatus] = useState(true);
 
   const { data: user, isLoading } = useQuery({
-    queryKey: ["managers", id],
-    queryFn: () => managerService.get(id),
+    queryKey: ["volunteers", id],
+    queryFn: () => volunteerService.get(id),
     onSuccess: (data) => {
       setStatus(data?.is_active ?? true);
     },
   });
 
   const mutation = useMutation({
-    mutationFn: managerService.update,
+    mutationFn: volunteerService.update,
   });
 
   const handleStatusChange = (e) => {
@@ -72,7 +73,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Managers | RTS Admin</title>
+        <title>Volunteers | RTS Admin</title>
       </Head>
       <Box
         component="main"
@@ -144,6 +145,9 @@ const Page = () => {
                       user.date_of_birth ? format(new Date(user.date_of_birth), "dd/MM/yyyy") : "--"
                     }
                   />
+                  <CardItem name={t("common.latitude")} content={user.location?.lat} />
+                  <CardItem name={t("common.longitude")} content={user.location?.lng} />
+                  <CardItem name={t("common.radius")} content={user.location?.radius} />
                   <CardItem
                     name={t("common.created_at")}
                     content={format(new Date(user.created_at), "dd/MM/yyyy HH:mm")}

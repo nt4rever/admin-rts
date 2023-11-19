@@ -28,5 +28,10 @@
   },
   "comment": {
     "required": "Please fill your comment before submit"
+  },
+  "radius": {
+    "max": "Maximum radius is 10000m",
+    "min": "Minimum radius is 100m",
+    "required": "Radius is required"
   }
 }

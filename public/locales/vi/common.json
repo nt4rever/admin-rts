@@ -86,7 +86,17 @@
   "back": "Quay lại",
   "hint-login-to-comment": "Vui lòng đăng nhập để bình luận",
   "load-more": "Tải thêm",
-  "area-manager": "Quản lý khu vực",
+  "area-manager": "Người quản lý khu vực",
   "add": "Thêm mới",
-  "add-area-manager": "Tạo quản lý khu vực"
+  "add-area-manager": "Tạo quản lý khu vực",
+  "recent-update": "Cập nhật gần đây",
+  "default": "Mặc định",
+  "full-name": "Họ tên",
+  "updated-at": "Cập nhật lúc",
+  "action": "Hành động",
+  "basic-information": "Thông tin cơ bản",
+  "active": "Hoạt động",
+  "inactive": "Bị khoá",
+  "volunteer-manager": "Quản lý tình nguyện viên",
+  "add-volunteer": "Tạo tình nguyện viên"
 }

@@ -1,5 +1,7 @@
-import { areaService } from "@/apis/area";
+import { managerService } from "@/apis/manager";
+import { volunteerService } from "@/apis/volunteer";
 import { genders } from "@/constants/gender";
+import { notifications } from "@mantine/notifications";
 import {
   Box,
   Button,
@@ -19,7 +21,9 @@ import {
   Typography,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
+import { isValid } from "date-fns";
 import { useFormik } from "formik";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -28,33 +32,13 @@ import { useRouter } from "next/router";
 import { ArrowLeft } from "react-feather";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import * as Yup from "yup";
-import { isValid } from "date-fns";
-import { useEffect } from "react";
-import { managerService } from "@/apis/manager";
-import { notifications } from "@mantine/notifications";
-import { isAxiosError } from "axios";
 
 const Page = () => {
   const router = useRouter();
 
   const { t } = useTranslation();
-  const { data: areas } = useQuery({
-    queryKey: ["area"],
-    queryFn: () =>
-      areaService.all({
-        order: "name|asc",
-      }),
-    staleTime: 5 * 60 * 100,
-  });
 
-  const mutation = useMutation({ mutationFn: managerService.create });
-
-  useEffect(() => {
-    if (areas?.length > 0 && !formik.values.area_id) {
-      formik.setFieldValue("area_id", areas[0].id);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [areas]);
+  const mutation = useMutation({ mutationFn: volunteerService.create });
 
   const genderItems = genders.map((gender, index) => (
     <MenuItem key={index} value={gender}>
@@ -64,7 +48,6 @@ const Page = () => {
 
   const formik = useFormik({
     initialValues: {
-      area_id: "",
       first_name: "",
       last_name: "",
       phone_number: "",
@@ -73,9 +56,24 @@ const Page = () => {
       address: "",
       password: "",
       email: "",
+      lat: "",
+      lng: "",
+      radius: 2000,
       submit: null,
     },
     validationSchema: new Yup.object({
+      lat: Yup.number()
+        .min(-90, t("validation.common.latitude-invalid"))
+        .max(90, t("validation.common.latitude-invalid"))
+        .required(t("validation.common.latitude-required")),
+      lng: Yup.number()
+        .min(-180, t("validation.common.longitude-invalid"))
+        .max(180, t("validation.common.longitude-invalid"))
+        .required(t("validation.common.longitude-required")),
+      radius: Yup.number()
+        .min(100, t("validation.radius.min"))
+        .max(10000, t("validation.radius.max"))
+        .required(t("validation.radius.required")),
       email: Yup.string()
         .email(t("validation.login.email-valid"))
         .required(t("validation.login.email-required")),
@@ -97,7 +95,6 @@ const Page = () => {
       address: Yup.string()
         .optional()
         .max(200, t("validation.common.max-length", { max: 200 })),
-      area_id: Yup.string().required(),
     }),
     onSubmit: async (values, helpers) => {
       try {
@@ -127,7 +124,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Managers | RTS Admin</title>
+        <title>Volunteers | RTS Admin</title>
       </Head>
       <Box
         component="main"
@@ -151,7 +148,7 @@ const Page = () => {
               </ButtonBase>
             </Stack>
             <Stack>
-              <Typography variant="h5">{t("common.add-area-manager")}</Typography>
+              <Typography variant="h5">{t("common.add-volunteer")}</Typography>
             </Stack>
             <form noValidate onSubmit={formik.handleSubmit}>
               <Card>
@@ -267,21 +264,46 @@ const Page = () => {
                       />
                     </Grid>
                     <Grid xs={12} md={6} item>
-                      <FormControl fullWidth variant="filled">
-                        <InputLabel id="area_id">{t("common.area")}</InputLabel>
-                        <Select
-                          name="area_id"
-                          MenuProps={{ disableScrollLock: true }}
-                          value={formik.values.area_id}
-                          onChange={formik.handleChange}
-                        >
-                          {areas?.map((item) => (
-                            <MenuItem value={item.id} key={item.id}>
-                              {item.name}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
+                      <TextField
+                        fullWidth
+                        type="number"
+                        label={t("common.latitude")}
+                        name="lat"
+                        required
+                        error={!!(formik.touched.lat && formik.errors.lat)}
+                        helperText={formik.touched.lat && formik.errors.lat}
+                        value={formik.values.lat}
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                      />
+                    </Grid>
+                    <Grid xs={12} md={6} item>
+                      <TextField
+                        fullWidth
+                        type="number"
+                        label={t("common.longitude")}
+                        name="lng"
+                        required
+                        error={!!(formik.touched.lng && formik.errors.lng)}
+                        helperText={formik.touched.lng && formik.errors.lng}
+                        value={formik.values.lng}
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                      />
+                    </Grid>
+                    <Grid xs={12} md={6} item>
+                      <TextField
+                        fullWidth
+                        type="number"
+                        label={t("common.radius")}
+                        name="radius"
+                        required
+                        error={!!(formik.touched.radius && formik.errors.radius)}
+                        helperText={formik.touched.radius && formik.errors.radius}
+                        value={formik.values.radius}
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                      />
                     </Grid>
                   </Grid>
                   {formik.errors.submit && (

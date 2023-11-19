@@ -8,7 +8,7 @@ const MANAGER_ENDPOINT = {
 };
 
 const area = async (payload) => {
-  const { id, ...params } = payload;
+  const { id, params } = payload;
   const { data } = await axiosClient.get(`${MANAGER_ENDPOINT.area}/${id}`, { params });
   return data;
 };
@@ -27,6 +27,7 @@ const update = async (payload) => {
 const create = async (payload) => {
   const dto = { ...payload, gender: payload.gender || undefined };
   const { data } = await axiosClient.post(MANAGER_ENDPOINT.create, dto);
+  return data;
 };
 
 export const managerService = { area, get, update, create };

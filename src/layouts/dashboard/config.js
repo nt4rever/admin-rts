@@ -42,6 +42,16 @@ export const items = [
     ),
   },
   {
+    role: [ROLES.AreaManager],
+    title: "Volunteers",
+    path: "/volunteers",
+    icon: (
+      <SvgIcon fontSize="small">
+        <UsersIcon />
+      </SvgIcon>
+    ),
+  },
+  {
     role: [ROLES.Admin, ROLES.AreaManager],
     title: "Account",
     path: "/account",
@@ -51,16 +61,16 @@ export const items = [
       </SvgIcon>
     ),
   },
-  {
-    role: [ROLES.Admin, ROLES.AreaManager],
-    title: "Settings",
-    path: "/settings",
-    icon: (
-      <SvgIcon fontSize="small">
-        <CogIcon />
-      </SvgIcon>
-    ),
-  }
+  // {
+  //   role: [ROLES.Admin, ROLES.AreaManager],
+  //   title: "Settings",
+  //   path: "/settings",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <CogIcon />
+  //     </SvgIcon>
+  //   ),
+  // }
 ];
 
 export const getItems = (role) => items.filter((item) => item.role.includes(role));

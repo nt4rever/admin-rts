@@ -62,8 +62,11 @@ export const ManagerFilter = () => {
             onChange={handelChange}
           >
             <MenuItem disabled>{t("common.sort-by")}</MenuItem>
+            <MenuItem value="created_at|asc">{t("common.default")}</MenuItem>
             <MenuItem value="created_at|desc">{t("common.newest")}</MenuItem>
-            <MenuItem value="updated_at|desc">{t("common.frequent")}</MenuItem>
+            <MenuItem value="updated_at|desc">{t("common.recent-update")}</MenuItem>
+            <MenuItem value="is_active|asc">{t("common.status")}</MenuItem>
+            <MenuItem value="last_name|asc">{t("common.name")}</MenuItem>
           </Select>
         </FormControl>
       </Stack>

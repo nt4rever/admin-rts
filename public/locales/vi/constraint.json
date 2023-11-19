@@ -3,5 +3,12 @@
     "MALE": "Nam",
     "FEMALE": "Nữ",
     "OTHER": "Khác"
+  },
+  "nav": {
+    "Overview": "Tổng quan",
+    "Areas": "Khu vực",
+    "Managers": "Người quản lý",
+    "Account": "Tài khoản",
+    "Volunteers": "Tình nguyện viên"
   }
 }
