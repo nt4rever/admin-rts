@@ -12,5 +12,8 @@
   "VO_0091": "You have voted this comment",
   "vote-successfully": "You have been voted successfully",
   "comment-success": "Your comment has been recorded",
-  "error": "Error when handle your request"
+  "error": "Error when handle your request",
+  "create-success": "Create successfully",
+  "create-fail": "Create fail",
+  "DB_11000": "Data has been existed in system"
 }

@@ -1,7 +1,7 @@
 import { managerService } from "@/apis/manager";
 import ComponentLoading from "@/components/Loading/ComponentLoading";
 import { MangerContext } from "@/contexts/manager-context";
-import { MangerFilter } from "@/sections/manager/manager-filter";
+import { ManagerFilter } from "@/sections/manager/manager-filter";
 import { MangerTable } from "@/sections/manager/manager-table";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import { Box, Button, Container, Stack, SvgIcon, Typography } from "@mui/material";
@@ -11,6 +11,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useState } from "react";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
+import NextLink from "next/link";
 
 const Page = () => {
   const { t } = useTranslation();
@@ -59,12 +60,14 @@ const Page = () => {
                       </SvgIcon>
                     }
                     variant="contained"
+                    component={NextLink}
+                    href="/managers/add"
                   >
                     {t("common.add")}
                   </Button>
                 </div>
               </Stack>
-              <MangerFilter />
+              <ManagerFilter />
               {isLoading && <ComponentLoading />}
               {data && <MangerTable items={data} />}
             </Stack>

@@ -3,8 +3,9 @@ import { useManagerContext } from "@/contexts/manager-context";
 import { Card, FormControl, MenuItem, Select, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "next-i18next";
+import { useEffect } from "react";
 
-export const MangerFilter = () => {
+export const ManagerFilter = () => {
   const { t } = useTranslation();
   const { managerFilter, setMangerFilter } = useManagerContext();
   const { data: areas } = useQuery({
@@ -13,15 +14,18 @@ export const MangerFilter = () => {
       areaService.all({
         order: "name|asc",
       }),
-    onSuccess: (data) => {
-      if (data?.length > 0) {
-        setMangerFilter((prev) => ({
-          ...prev,
-          area: data[0].id,
-        }));
-      }
-    },
+    staleTime: 5 * 60 * 100,
   });
+
+  useEffect(() => {
+    if (areas?.length > 0) {
+      setMangerFilter((prev) => ({
+        ...prev,
+        area: areas[0].id,
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [areas]);
 
   const handelChange = (e) => {
     setMangerFilter((prev) => ({
