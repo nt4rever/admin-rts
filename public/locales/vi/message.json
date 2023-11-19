@@ -12,5 +12,8 @@
   "VO_0091": "Bạn đã bình chọn bình luận này",
   "vote-successfully": "Bình chọn thành công",
   "comment-success": "Bình luận đã được gửi đi",
-  "error": "Đã xảy ra lỗi"
+  "error": "Đã xảy ra lỗi",
+  "create-success": "Tạo thành công",
+  "create-fail": "Tạo thất bại",
+  "DB_11000": "Dữ liệu đã tồn tại"
 }

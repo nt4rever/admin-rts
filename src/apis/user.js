@@ -12,7 +12,7 @@ const me = async () => {
 };
 
 const updateProfile = async (dto) => {
-  await axiosClient.patch(USER_ENDPOINT.updateProfile, dto);
+  await axiosClient.patch(USER_ENDPOINT.updateProfile, { ...dto, gender: dto.gender || undefined });
 };
 
 const uploadAvatar = async (dto) => {

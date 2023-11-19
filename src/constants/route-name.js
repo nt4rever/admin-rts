@@ -5,6 +5,7 @@ export const RouteNames = {
   areas: "/areas",
   managers: "/managers",
   managersEdit: "/managers/[id]",
+  managersAdd: "/managers/add",
   companies: "/companies",
   settings: "/settings",
 };

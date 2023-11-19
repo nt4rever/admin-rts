@@ -84,5 +84,6 @@
   "hint-login-to-comment": "Please login to comment",
   "load-more": "Load more",
   "area-manager": "Area manager",
-  "add": "Add"
+  "add": "Add",
+  "add-area-manager": "Create a new area manager"
 }

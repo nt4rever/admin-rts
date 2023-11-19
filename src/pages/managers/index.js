@@ -11,6 +11,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useState } from "react";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
+import NextLink from "next/link";
 
 const Page = () => {
   const { t } = useTranslation();
@@ -59,6 +60,8 @@ const Page = () => {
                       </SvgIcon>
                     }
                     variant="contained"
+                    component={NextLink}
+                    href="/managers/add"
                   >
                     {t("common.add")}
                   </Button>
