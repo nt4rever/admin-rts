@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { format } from "date-fns";
+import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
 import PropTypes from "prop-types";
 import { ArrowRight } from "react-feather";
@@ -21,6 +22,7 @@ import { Scrollbar } from "src/components/scrollbar";
 
 export const MangerTable = (props) => {
   const { items = [] } = props;
+  const { t } = useTranslation();
 
   return (
     <Card>
@@ -29,16 +31,16 @@ export const MangerTable = (props) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Updated at</TableCell>
-                <TableCell>Action</TableCell>
+                <TableCell>{t("common.full-name")}</TableCell>
+                <TableCell>{t("common.email")}</TableCell>
+                <TableCell>{t("common.status")}</TableCell>
+                <TableCell>{t("common.updated-at")}</TableCell>
+                <TableCell>{t("common.action")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {items.map((user) => {
-                const updatedAt = format(new Date(user.updated_at), "dd/MM/yyyy");
+                const updatedAt = format(new Date(user.updated_at), "dd/MM/yyyy HH:mm");
 
                 return (
                   <TableRow hover key={user.id}>
@@ -53,9 +55,14 @@ export const MangerTable = (props) => {
                     <TableCell>{user.email}</TableCell>
                     <TableCell>
                       {user.is_active ? (
-                        <Chip size="small" label="Active" color="success" variant="outlined" />
+                        <Chip
+                          size="small"
+                          label={t("common.active")}
+                          color="success"
+                          variant="outlined"
+                        />
                       ) : (
-                        <Chip size="small" label="Inactive" color="error" />
+                        <Chip size="small" label={t("common.inactive")} color="error" />
                       )}
                     </TableCell>
                     <TableCell>{updatedAt}</TableCell>

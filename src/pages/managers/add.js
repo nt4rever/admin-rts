@@ -147,7 +147,7 @@ const Page = () => {
                 sx={{ gap: 1 }}
               >
                 <ArrowLeft />
-                <Typography variant="body1">Managers</Typography>
+                <Typography variant="body1">{t("common.back")}</Typography>
               </ButtonBase>
             </Stack>
             <Stack>
@@ -219,20 +219,7 @@ const Page = () => {
                         onChange={formik.handleChange}
                       />
                     </Grid>
-                    <Grid xs={12} md={6} item>
-                      <TextField
-                        fullWidth
-                        type="password"
-                        label={t("common.password")}
-                        name="password"
-                        required
-                        error={!!(formik.touched.password && formik.errors.password)}
-                        helperText={formik.touched.password && formik.errors.password}
-                        value={formik.values.password}
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
-                      />
-                    </Grid>
+
                     <Grid xs={12} md={6} item>
                       <DatePicker
                         componentsProps={{
@@ -264,6 +251,20 @@ const Page = () => {
                           {genderItems}
                         </Select>
                       </FormControl>
+                    </Grid>
+                    <Grid xs={12} md={6} item>
+                      <TextField
+                        fullWidth
+                        type="password"
+                        label={t("common.password")}
+                        name="password"
+                        required
+                        error={!!(formik.touched.password && formik.errors.password)}
+                        helperText={formik.touched.password && formik.errors.password}
+                        value={formik.values.password}
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                      />
                     </Grid>
                     <Grid xs={12} md={6} item>
                       <FormControl fullWidth variant="filled">

@@ -91,7 +91,7 @@ const Page = () => {
                 sx={{ gap: 1 }}
               >
                 <ArrowLeft />
-                <Typography variant="body1">Managers</Typography>
+                <Typography variant="body1">{t("common.back")}</Typography>
               </ButtonBase>
             </Stack>
             {isLoading && <ComponentLoading />}
@@ -124,7 +124,7 @@ const Page = () => {
                           inputProps={{ "aria-label": "controlled" }}
                         />
                       }
-                      label="Status"
+                      label={t("common.status")}
                     />
                   </Stack>
                 </Stack>
@@ -133,23 +133,23 @@ const Page = () => {
                     pb: 1,
                   }}
                 >
-                  <CardHeader title="Basic detail" />
-                  <CardItem name="Email" content={user.email} />
-                  <CardItem name="Phone number" content={user.phone_number} />
-                  <CardItem name="Gender" content={user.gender} />
-                  <CardItem name="Address" content={user.address} />
+                  <CardHeader title={t("common.basic-information")} />
+                  <CardItem name={t("common.email")} content={user.email} />
+                  <CardItem name={t("common.phone-number")} content={user.phone_number} />
+                  <CardItem name={t("common.gender")} content={user.gender} />
+                  <CardItem name={t("common.address")} content={user.address} />
                   <CardItem
-                    name="Date of birth"
+                    name={t("common.date-of-birth")}
                     content={
                       user.date_of_birth ? format(new Date(user.date_of_birth), "dd/MM/yyyy") : "--"
                     }
                   />
                   <CardItem
-                    name="Created at"
+                    name={t("common.created_at")}
                     content={format(new Date(user.created_at), "dd/MM/yyyy HH:mm")}
                   />
                   <CardItem
-                    name="Updated at"
+                    name={t("common.updated-at")}
                     content={format(new Date(user.updated_at), "dd/MM/yyyy HH:mm")}
                     lastItem
                   />

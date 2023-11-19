@@ -85,5 +85,13 @@
   "load-more": "Load more",
   "area-manager": "Area manager",
   "add": "Add",
-  "add-area-manager": "Create a new area manager"
+  "add-area-manager": "Create a new area manager",
+  "recent-update": "Recent update",
+  "default": "Default",
+  "full-name": "Full name",
+  "action": "Action",
+  "updated-at": "Updated at",
+  "basic-information": "Basic information",
+  "active": "Active",
+  "inactive": "Inactive"
 }

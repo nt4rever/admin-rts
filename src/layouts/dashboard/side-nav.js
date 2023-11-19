@@ -19,6 +19,7 @@ import { Scrollbar } from "src/components/scrollbar";
 import { SideNavItem } from "./side-nav-item";
 import { useAuthStore } from "@/store/useAuthStore";
 import { getItems } from "./config";
+import { useTranslation } from "next-i18next";
 
 export const SideNav = (props) => {
   const { open, onClose } = props;
@@ -26,6 +27,7 @@ export const SideNav = (props) => {
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   const { user } = useAuthStore();
   const items = getItems(user?.role);
+  const { t } = useTranslation();
 
   const content = (
     <Scrollbar
@@ -117,7 +119,7 @@ export const SideNav = (props) => {
                   icon={item.icon}
                   key={item.title}
                   path={item.path}
-                  title={item.title}
+                  title={t(`constraint.nav.${item.title}`)}
                 />
               );
             })}
