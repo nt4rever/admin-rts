@@ -10,6 +10,7 @@ import {
   TableBody,
   TableCell,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from "@mui/material";
@@ -20,8 +21,16 @@ import PropTypes from "prop-types";
 import { ArrowRight } from "react-feather";
 import { Scrollbar } from "src/components/scrollbar";
 
-export const ManagerTable = (props) => {
-  const { items = [] } = props;
+export const VolunteerTable = (props) => {
+  const {
+    count = 0,
+    items = [],
+    onPageChange = () => {},
+    onRowsPerPageChange,
+    page = 0,
+    rowsPerPage = 0,
+  } = props;
+
   const { t } = useTranslation();
 
   return (
@@ -78,7 +87,7 @@ export const ManagerTable = (props) => {
                               borderRadius: 8,
                             },
                           }}
-                          href={`/managers/${user.id}`}
+                          href={`/volunteers/${user.id}`}
                           component={NextLink}
                         >
                           <ArrowRight />
@@ -92,10 +101,25 @@ export const ManagerTable = (props) => {
           </Table>
         </Box>
       </Scrollbar>
+      <TablePagination
+        component="div"
+        count={count}
+        onPageChange={onPageChange}
+        onRowsPerPageChange={onRowsPerPageChange}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        rowsPerPageOptions={[5, 10, 25]}
+        labelRowsPerPage={t("common.rows-per-page")}
+        labelDisplayedRows={({ from, to, count }) => {
+          return `${from}–${to} ${t("common.of")} ${
+            count !== -1 ? count : `${t("common.more-than")} ${to}`
+          }`;
+        }}
+      />
     </Card>
   );
 };
 
-ManagerTable.propTypes = {
+VolunteerTable.propTypes = {
   items: PropTypes.array,
 };

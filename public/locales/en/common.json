@@ -93,5 +93,7 @@
   "updated-at": "Updated at",
   "basic-information": "Basic information",
   "active": "Active",
-  "inactive": "Inactive"
+  "inactive": "Inactive",
+  "volunteer-manager": "Volunteer management",
+  "add-volunteer": "Create a new volunteer"
 }

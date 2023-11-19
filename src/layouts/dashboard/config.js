@@ -42,6 +42,16 @@ export const items = [
     ),
   },
   {
+    role: [ROLES.AreaManager],
+    title: "Volunteers",
+    path: "/volunteers",
+    icon: (
+      <SvgIcon fontSize="small">
+        <UsersIcon />
+      </SvgIcon>
+    ),
+  },
+  {
     role: [ROLES.Admin, ROLES.AreaManager],
     title: "Account",
     path: "/account",

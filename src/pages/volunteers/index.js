@@ -1,44 +1,53 @@
-import { managerService } from "@/apis/manager";
+import { volunteerService } from "@/apis/volunteer";
 import ComponentLoading from "@/components/Loading/ComponentLoading";
-import { MangerContext } from "@/contexts/manager-context";
-import { ManagerFilter } from "@/sections/manager/manager-filter";
-import { ManagerTable } from "@/sections/manager/manager-table";
+import { VolunteerContext } from "@/contexts/volunteer-context";
+import { VolunteerFilter } from "@/sections/volunteer/volunteer-filter";
+import { VolunteerTable } from "@/sections/volunteer/volunteer-table";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import { Box, Button, Container, Stack, SvgIcon, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import NextLink from "next/link";
+import { useCallback } from "react";
 import { useState } from "react";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
-import NextLink from "next/link";
 
 const Page = () => {
   const { t } = useTranslation();
-  const [managerFilter, setMangerFilter] = useState({
-    area: "",
+  const [volunteerFilter, setVolunteerFilter] = useState({
     order: "created_at|desc",
   });
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["managers", { area: managerFilter.area, order: managerFilter.order }],
+    queryKey: ["volunteers", { page, rowsPerPage, order: volunteerFilter.order }],
     queryFn: () =>
-      managerService.area({
-        id: managerFilter.area,
-        params: {
-          order: managerFilter.order,
-        },
+      volunteerService.all({
+        page,
+        per_page: rowsPerPage,
+        order: volunteerFilter.order,
       }),
-    enabled: !!managerFilter.area,
     keepPreviousData: true,
   });
+
+  const handlePageChange = useCallback((event, value) => {
+    setPage(value + 1);
+  }, []);
+
+  const handleRowsPerPageChange = useCallback((event) => {
+    setRowsPerPage(event.target.value);
+    setPage(1);
+  }, []);
 
   return (
     <>
       <Head>
-        <title>Managers | RTS Admin</title>
+        <title>Volunteers | RTS Admin</title>
       </Head>
-      <MangerContext.Provider value={{ managerFilter, setMangerFilter }}>
+      <VolunteerContext.Provider value={{ volunteerFilter, setVolunteerFilter }}>
         <Box
           component="main"
           sx={{
@@ -50,7 +59,7 @@ const Page = () => {
             <Stack spacing={3}>
               <Stack direction="row" justifyContent="space-between" spacing={4}>
                 <Stack spacing={1}>
-                  <Typography variant="h4">{t("common.area-manager")}</Typography>
+                  <Typography variant="h4">{t("common.volunteer-manager")}</Typography>
                 </Stack>
                 <div>
                   <Button
@@ -61,19 +70,28 @@ const Page = () => {
                     }
                     variant="contained"
                     component={NextLink}
-                    href="/managers/add"
+                    href="/volunteers/add"
                   >
                     {t("common.add")}
                   </Button>
                 </div>
               </Stack>
-              <ManagerFilter />
+              <VolunteerFilter />
               {isLoading && <ComponentLoading />}
-              {data && <ManagerTable items={data} />}
+              {data && (
+                <VolunteerTable
+                  count={data.meta.item_count}
+                  items={data.items}
+                  onPageChange={handlePageChange}
+                  onRowsPerPageChange={handleRowsPerPageChange}
+                  page={page - 1}
+                  rowsPerPage={rowsPerPage}
+                />
+              )}
             </Stack>
           </Container>
         </Box>
-      </MangerContext.Provider>
+      </VolunteerContext.Provider>
     </>
   );
 };

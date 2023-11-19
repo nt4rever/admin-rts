@@ -19,6 +19,9 @@ const routeConfig = {
     default: RouteNames.index,
     [RouteNames.index]: RouteNames.index,
     [RouteNames.account]: RouteNames.account,
+    [RouteNames.volunteers]: RouteNames.volunteers,
+    [RouteNames.volunteersEdit]: RouteNames.volunteersEdit,
+    [RouteNames.volunteersAdd]: RouteNames.volunteersAdd,
   },
 };
 

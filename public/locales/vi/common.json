@@ -96,5 +96,7 @@
   "action": "Hành động",
   "basic-information": "Thông tin cơ bản",
   "active": "Hoạt động",
-  "inactive": "Bị khoá"
+  "inactive": "Bị khoá",
+  "volunteer-manager": "Quản lý tình nguyện viên",
+  "add-volunteer": "Tạo tình nguyện viên"
 }
