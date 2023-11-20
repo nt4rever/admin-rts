@@ -10,7 +10,8 @@
     "Managers": "Managers",
     "Account": "Account",
     "Volunteers": "Volunteers",
-    "Reports": "Reports"
+    "Reports": "Reports",
+    "Tasks": "Tasks"
   },
   "report": {
     "status": {
