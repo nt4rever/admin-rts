@@ -9,6 +9,20 @@
     "Areas": "Areas",
     "Managers": "Managers",
     "Account": "Account",
-    "Volunteers": "Volunteers"
+    "Volunteers": "Volunteers",
+    "Reports": "Reports"
+  },
+  "report": {
+    "status": {
+      "ALL": "all",
+      "NEW": "new",
+      "PENDING": "pending",
+      "CONFIRMED": "confirmed",
+      "REJECTED": "rejected",
+      "IN_PROCESS": "in process",
+      "RESOLVED": "resolved",
+      "CLOSED": "closed",
+      "TENTATIVE": "tentative"
+    }
   }
 }

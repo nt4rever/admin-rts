@@ -1,13 +1,9 @@
 import { ROLES } from "@/constants/role";
 import ChartBarIcon from "@heroicons/react/24/solid/ChartBarIcon";
-import CogIcon from "@heroicons/react/24/solid/CogIcon";
-import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
-import ShoppingBagIcon from "@heroicons/react/24/solid/ShoppingBagIcon";
-import UserIcon from "@heroicons/react/24/solid/UserIcon";
-import UserPlusIcon from "@heroicons/react/24/solid/UserPlusIcon";
-import UsersIcon from "@heroicons/react/24/solid/UsersIcon";
-import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
+import FireIcon from "@heroicons/react/24/solid/FireIcon";
 import MapIcon from "@heroicons/react/24/solid/MapIcon";
+import UserIcon from "@heroicons/react/24/solid/UserIcon";
+import UsersIcon from "@heroicons/react/24/solid/UsersIcon";
 import { SvgIcon } from "@mui/material";
 
 export const items = [
@@ -43,6 +39,16 @@ export const items = [
   },
   {
     role: [ROLES.AreaManager],
+    title: "Reports",
+    path: "/reports",
+    icon: (
+      <SvgIcon fontSize="small">
+        <FireIcon />
+      </SvgIcon>
+    ),
+  },
+  {
+    role: [ROLES.AreaManager],
     title: "Volunteers",
     path: "/volunteers",
     icon: (
@@ -61,16 +67,6 @@ export const items = [
       </SvgIcon>
     ),
   },
-  // {
-  //   role: [ROLES.Admin, ROLES.AreaManager],
-  //   title: "Settings",
-  //   path: "/settings",
-  //   icon: (
-  //     <SvgIcon fontSize="small">
-  //       <CogIcon />
-  //     </SvgIcon>
-  //   ),
-  // }
 ];
 
 export const getItems = (role) => items.filter((item) => item.role.includes(role));

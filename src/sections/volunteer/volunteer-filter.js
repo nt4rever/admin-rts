@@ -6,7 +6,7 @@ export const VolunteerFilter = () => {
   const { t } = useTranslation();
   const { volunteerFilter, setVolunteerFilter } = useVolunteerContext();
 
-  const handelChange = (e) => {
+  const handleChange = (e) => {
     setVolunteerFilter((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -22,7 +22,7 @@ export const VolunteerFilter = () => {
             name="order"
             MenuProps={{ disableScrollLock: true }}
             value={volunteerFilter.order}
-            onChange={handelChange}
+            onChange={handleChange}
           >
             <MenuItem disabled>{t("common.sort-by")}</MenuItem>
             <MenuItem value="created_at|asc">{t("common.default")}</MenuItem>

@@ -27,7 +27,7 @@ export const ManagerFilter = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [areas]);
 
-  const handelChange = (e) => {
+  const handleChange = (e) => {
     setMangerFilter((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -41,7 +41,7 @@ export const ManagerFilter = () => {
           <Select
             size="small"
             name="area"
-            onChange={handelChange}
+            onChange={handleChange}
             MenuProps={{ disableScrollLock: true }}
             value={managerFilter.area}
           >
@@ -59,7 +59,7 @@ export const ManagerFilter = () => {
             name="order"
             MenuProps={{ disableScrollLock: true }}
             value={managerFilter.order}
-            onChange={handelChange}
+            onChange={handleChange}
           >
             <MenuItem disabled>{t("common.sort-by")}</MenuItem>
             <MenuItem value="created_at|asc">{t("common.default")}</MenuItem>
