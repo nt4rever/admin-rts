@@ -5,6 +5,7 @@ const VOLUNTEER_ENDPOINT = {
   get: "/volunteers",
   update: "/volunteers",
   create: "/volunteers",
+  list: "/volunteers/list",
 };
 
 const all = async (params) => {
@@ -31,4 +32,11 @@ const create = async (payload) => {
   return data;
 };
 
-export const volunteerService = { all, get, update, create };
+const list = async (params) => {
+  const { data } = await axiosClient.get(VOLUNTEER_ENDPOINT.list, {
+    params,
+  });
+  return data;
+};
+
+export const volunteerService = { all, get, update, create, list };

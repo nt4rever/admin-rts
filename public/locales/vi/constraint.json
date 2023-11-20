@@ -10,7 +10,8 @@
     "Managers": "Người quản lý",
     "Account": "Tài khoản",
     "Volunteers": "Tình nguyện viên",
-    "Reports": "Báo cáo"
+    "Reports": "Báo cáo",
+    "Tasks": "Nhiệm vụ"
   },
   "report": {
     "status": {
@@ -23,6 +24,14 @@
       "RESOLVED": "đã xử lý",
       "CLOSED": "đóng",
       "TENTATIVE": "không chắc chắn"
+    }
+  },
+  "task": {
+    "status": {
+      "PENDING": "Đang chờ",
+      "CANCELED": "Bị huỷ",
+      "DONE": "Hoàn thành",
+      "ALL": "Tất cả"
     }
   }
 }

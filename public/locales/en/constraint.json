@@ -10,7 +10,8 @@
     "Managers": "Managers",
     "Account": "Account",
     "Volunteers": "Volunteers",
-    "Reports": "Reports"
+    "Reports": "Reports",
+    "Tasks": "Tasks"
   },
   "report": {
     "status": {
@@ -23,6 +24,14 @@
       "RESOLVED": "resolved",
       "CLOSED": "closed",
       "TENTATIVE": "tentative"
+    }
+  },
+  "task": {
+    "status": {
+      "PENDING": "Pending",
+      "CANCELED": "Canceled",
+      "DONE": "Done",
+      "ALL": "All"
     }
   }
 }
