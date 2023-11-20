@@ -28,6 +28,7 @@ export const ReportFilter = () => {
             <MenuItem value="created_at|asc">{t("common.default")}</MenuItem>
             <MenuItem value="created_at|desc">{t("common.newest")}</MenuItem>
             <MenuItem value="updated_at|desc">{t("common.recent-update")}</MenuItem>
+            <MenuItem value="score|desc">{t("common.vote")}</MenuItem>
           </Select>
         </FormControl>
         <FormControl>

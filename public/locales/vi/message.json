@@ -15,5 +15,7 @@
   "error": "Đã xảy ra lỗi",
   "create-success": "Tạo thành công",
   "create-fail": "Tạo thất bại",
-  "DB_11000": "Dữ liệu đã tồn tại"
+  "DB_11000": "Dữ liệu đã tồn tại",
+  "update-fail": "Cập nhật thất bại",
+  "update-successfully": "Cập nhật thành công"
 }

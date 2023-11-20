@@ -111,7 +111,7 @@ export const ReportTable = (props) => {
         onRowsPerPageChange={onRowsPerPageChange}
         page={page}
         rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
         labelRowsPerPage={t("common.rows-per-page")}
         labelDisplayedRows={({ from, to, count }) => {
           return `${from}–${to} ${t("common.of")} ${

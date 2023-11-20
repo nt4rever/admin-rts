@@ -6,6 +6,7 @@ import MapLink from "@/components/map-link";
 import { SeverityPill } from "@/components/severity-pill";
 import { reportStatusMap } from "@/constants/report-status";
 import { evidenceTypeMap } from "@/constants/task-status";
+import { ReportForm } from "@/sections/report/report-form";
 import { getFullName } from "@/utils/string";
 import {
   Box,
@@ -39,7 +40,7 @@ const Page = () => {
   }, [setEvidenceExpanded]);
 
   const { data: report, isLoading } = useQuery({
-    queryKey: ["reports", id],
+    queryKey: ["tickets", id],
     queryFn: () => ticketService.get(id),
   });
 
@@ -164,11 +165,11 @@ const Page = () => {
                           />
                           <CardItem name={t("common.content")} content={evidence.content} />
                           <CardItem name={t("common.status")} hasChild>
-                          <Stack direction="row">
-                            <SeverityPill color={evidenceTypeMap[evidence.type]}>
-                              {t(`constraint.report.status.${evidence.type}`)}
-                            </SeverityPill>
-                          </Stack>
+                            <Stack direction="row">
+                              <SeverityPill color={evidenceTypeMap[evidence.type]}>
+                                {t(`constraint.report.status.${evidence.type}`)}
+                              </SeverityPill>
+                            </Stack>
                           </CardItem>
                           <CardItem name={t("common.location")} hasChild>
                             <Stack direction="row" spacing={2}>
@@ -199,6 +200,7 @@ const Page = () => {
                     </Collapse>
                   </Card>
                 )}
+                <ReportForm data={report} />
               </>
             )}
           </Stack>

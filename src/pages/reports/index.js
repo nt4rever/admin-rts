@@ -9,17 +9,21 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import { useCallback, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
+import { useCallback, useEffect, useState } from "react";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
 const Page = () => {
+  const router = useRouter();
+  const searchParam = useSearchParams();
   const { t } = useTranslation();
   const { user } = useAuthStore();
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(+searchParam.get("page") || 1);
+  const [rowsPerPage, setRowsPerPage] = useState(+searchParam.get("per_page") || 10);
   const [filter, setFilter] = useState({
-    order: "created_at|desc",
-    status: "ALL",
+    order: searchParam.get("order") || "created_at|desc",
+    status: searchParam.get("status") || "ALL",
   });
 
   const { data, isLoading } = useQuery({
@@ -38,6 +42,27 @@ const Page = () => {
     enabled: !!user?.area,
     keepPreviousData: true,
   });
+
+  useEffect(() => {
+    router.push(
+      `?page=${page}&per_page=${rowsPerPage}&order=${filter.order}&status=${filter.status}`,
+      null,
+      {
+        scroll: false,
+        shallow: true,
+      }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, rowsPerPage, filter.order, filter.status]);
+
+  useEffect(() => {
+    setPage(+searchParam.get("page") || 1);
+    setRowsPerPage(+searchParam.get("per_page") || 10);
+    setFilter({
+      order: searchParam.get("order") || "created_at|desc",
+      status: searchParam.get("status") || "ALL",
+    });
+  }, [searchParam]);
 
   const handlePageChange = useCallback((event, value) => {
     setPage(value + 1);

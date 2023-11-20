@@ -7,3 +7,5 @@ export const reportStatusMap = {
   RESOLVED: "success",
   CLOSED: "error",
 };
+
+export const reportStatusUpdate = ["IN_PROCESS", "RESOLVED", "CLOSED", "PENDING", "NEW"];

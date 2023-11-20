@@ -15,5 +15,7 @@
   "error": "Error when handle your request",
   "create-success": "Create successfully",
   "create-fail": "Create fail",
-  "DB_11000": "Data has been existed in system"
+  "DB_11000": "Data has been existed in system",
+  "update-fail": "Update fail",
+  "update-successfully": "Update successfully"
 }
