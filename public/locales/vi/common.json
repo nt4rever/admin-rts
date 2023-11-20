@@ -98,5 +98,8 @@
   "active": "Hoạt động",
   "inactive": "Bị khoá",
   "volunteer-manager": "Quản lý tình nguyện viên",
-  "add-volunteer": "Tạo tình nguyện viên"
+  "add-volunteer": "Tạo tình nguyện viên",
+  "report-management": "Quản lý báo cáo",
+  "score": "Bình chọn",
+  "created-by": "Người tạo"
 }

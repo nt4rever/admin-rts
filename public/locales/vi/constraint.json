@@ -9,6 +9,20 @@
     "Areas": "Khu vực",
     "Managers": "Người quản lý",
     "Account": "Tài khoản",
-    "Volunteers": "Tình nguyện viên"
+    "Volunteers": "Tình nguyện viên",
+    "Reports": "Báo cáo"
+  },
+  "report": {
+    "status": {
+      "ALL": "Tất cả",
+      "NEW": "mới",
+      "PENDING": "chờ xác nhận",
+      "CONFIRMED": "đã xác nhận",
+      "REJECTED": "từ chối",
+      "IN_PROCESS": "đang xử lý",
+      "RESOLVED": "đã xử lý",
+      "CLOSED": "đóng",
+      "TENTATIVE": "không chắc chắn"
+    }
   }
 }

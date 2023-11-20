@@ -95,5 +95,8 @@
   "active": "Active",
   "inactive": "Inactive",
   "volunteer-manager": "Volunteer management",
-  "add-volunteer": "Create a new volunteer"
+  "add-volunteer": "Create a new volunteer",
+  "report-management": "Report management",
+  "score": "Votes",
+  "created-by": "Created by"
 }

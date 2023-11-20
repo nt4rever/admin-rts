@@ -9,6 +9,8 @@ export const RouteNames = {
   volunteers: "/volunteers",
   volunteersEdit: "/volunteers/[id]",
   volunteersAdd: "/volunteers/add",
+  reports: "/reports",
+  reportsEdit: "/reports/[id]",
   companies: "/companies",
   settings: "/settings",
 };

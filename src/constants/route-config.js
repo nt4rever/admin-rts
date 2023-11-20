@@ -22,6 +22,8 @@ const routeConfig = {
     [RouteNames.volunteers]: RouteNames.volunteers,
     [RouteNames.volunteersEdit]: RouteNames.volunteersEdit,
     [RouteNames.volunteersAdd]: RouteNames.volunteersAdd,
+    [RouteNames.reports]: RouteNames.reports,
+    [RouteNames.reportsEdit]: RouteNames.reportsEdit,
   },
 };
 
