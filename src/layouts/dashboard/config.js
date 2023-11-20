@@ -48,16 +48,16 @@ export const items = [
       </SvgIcon>
     ),
   },
-  {
-    role: [ROLES.AreaManager],
-    title: "Tasks",
-    path: "/tasks",
-    icon: (
-      <SvgIcon fontSize="small">
-        <ShieldCheckIcon />
-      </SvgIcon>
-    ),
-  },
+  // {
+  //   role: [ROLES.AreaManager],
+  //   title: "Tasks",
+  //   path: "/tasks",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <ShieldCheckIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
   {
     role: [ROLES.AreaManager],
     title: "Volunteers",

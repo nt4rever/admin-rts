@@ -25,5 +25,13 @@
       "CLOSED": "closed",
       "TENTATIVE": "tentative"
     }
+  },
+  "task": {
+    "status": {
+      "PENDING": "Pending",
+      "CANCELED": "Canceled",
+      "DONE": "Done",
+      "ALL": "All"
+    }
   }
 }

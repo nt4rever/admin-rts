@@ -103,5 +103,10 @@
   "score": "Bình chọn",
   "created-by": "Người tạo",
   "report-information": "Thông tin báo cáo",
-  "update-report": "Cập nhật báo cáo"
+  "update-report": "Cập nhật báo cáo",
+  "tasks": "Nhiệm vụ",
+  "volunteer": "Tình nguyện viên",
+  "note": "Ghi chú",
+  "deadline": "Thời hạn",
+  "assign-task": "Giao nhiệm vụ cho"
 }

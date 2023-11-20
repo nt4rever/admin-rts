@@ -5,6 +5,7 @@ const TICKET_ENDPOINT = {
   all: "/tickets",
   get: "/tickets",
   update: "/tickets",
+  assign: (id) => `/tickets/${id}/assign`,
 };
 
 const all = async (params) => {
@@ -28,4 +29,13 @@ const update = async (payload) => {
   return data;
 };
 
-export const ticketService = { all, get, update };
+const assign = async (payload) => {
+  const { id, ...dto } = payload;
+  const { data } = await axiosClient.post(TICKET_ENDPOINT.assign(id), {
+    ...dto,
+    expires_at: dto.expires_at || undefined,
+  });
+  return data;
+};
+
+export const ticketService = { all, get, update, assign };

@@ -1,19 +1,18 @@
 import { ticketService } from "@/apis/ticket";
 import { CardItem } from "@/components/Card/card-item";
 import ComponentLoading from "@/components/Loading/ComponentLoading";
-import { ExpandMore } from "@/components/expand-more";
 import MapLink from "@/components/map-link";
 import { SeverityPill } from "@/components/severity-pill";
 import { reportStatusMap } from "@/constants/report-status";
-import { evidenceTypeMap } from "@/constants/task-status";
+import { ReportEvidence } from "@/sections/report/report-evidence";
 import { ReportForm } from "@/sections/report/report-form";
+import { ReportTask } from "@/sections/report/report-task";
 import { getFullName } from "@/utils/string";
 import {
   Box,
   ButtonBase,
   Card,
   CardHeader,
-  Collapse,
   Container,
   Stack,
   Typography,
@@ -25,19 +24,13 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useCallback, useState } from "react";
-import { ArrowLeft, ChevronDown } from "react-feather";
+import { ArrowLeft } from "react-feather";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
 const Page = () => {
   const router = useRouter();
   const id = router.query?.id;
   const { t } = useTranslation();
-  const [evidenceExpanded, setEvidenceExpanded] = useState(false);
-
-  const handleEvidenceExpand = useCallback(() => {
-    setEvidenceExpanded((prev) => !prev);
-  }, [setEvidenceExpanded]);
 
   const { data: report, isLoading } = useQuery({
     queryKey: ["tickets", id],
@@ -136,70 +129,8 @@ const Page = () => {
                   <CardItem name={capitalize(t("common.views"))} content={report.view_count} />
                   <CardItem name={t("common.vote")} content={report.score} lastItem />
                 </Card>
-                {report.evidences?.length > 0 && (
-                  <Card>
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="space-between"
-                      sx={{ px: 3, py: 4 }}
-                    >
-                      <Typography variant="h6">{t("common.evidences")}</Typography>
-                      <ExpandMore
-                        expand={evidenceExpanded}
-                        onClick={handleEvidenceExpand}
-                        aria-expanded={evidenceExpanded}
-                        aria-label="show more"
-                      >
-                        <ChevronDown />
-                      </ExpandMore>
-                    </Stack>
-                    <Collapse in={evidenceExpanded}>
-                      {report?.evidences?.map((evidence) => (
-                        <div key={evidence.id}>
-                          <CardItem
-                            name={t("common.role.VOLUNTEER")}
-                            content={`${evidence.created_by.first_name || ""} ${
-                              evidence.created_by.last_name
-                            }`}
-                          />
-                          <CardItem name={t("common.content")} content={evidence.content} />
-                          <CardItem name={t("common.status")} hasChild>
-                            <Stack direction="row">
-                              <SeverityPill color={evidenceTypeMap[evidence.type]}>
-                                {t(`constraint.report.status.${evidence.type}`)}
-                              </SeverityPill>
-                            </Stack>
-                          </CardItem>
-                          <CardItem name={t("common.location")} hasChild>
-                            <Stack direction="row" spacing={2}>
-                              <Typography variant="body2">{`${evidence.lat}, ${evidence.lng}`}</Typography>
-                              <MapLink lat={evidence.lat} lng={evidence.lng} />
-                            </Stack>
-                          </CardItem>
-                          <CardItem
-                            name={t("common.created_at")}
-                            content={format(new Date(evidence.created_at), "dd/MM/yyyy HH:mm")}
-                          />
-                          <CardItem name={t("common.images")} hasChild lastItem>
-                            <Stack direction="row" gap={1} flexWrap="wrap">
-                              {evidence.images.map((img) => (
-                                <img
-                                  key={img}
-                                  src={img}
-                                  style={{
-                                    aspectRatio: "1/1",
-                                    width: "200px",
-                                  }}
-                                />
-                              ))}
-                            </Stack>
-                          </CardItem>
-                        </div>
-                      ))}
-                    </Collapse>
-                  </Card>
-                )}
+                <ReportEvidence report={report} />
+                <ReportTask id={id} />
                 <ReportForm data={report} />
               </>
             )}
