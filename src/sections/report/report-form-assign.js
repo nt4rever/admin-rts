@@ -41,7 +41,7 @@ export const ReportFormAssign = (props) => {
       id,
       assignee: "",
       note: "",
-      expires_at: undefined,
+      expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000),
     },
     validationSchema: new Yup.object({
       id: Yup.string().required(),
