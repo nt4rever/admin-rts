@@ -4,6 +4,7 @@ import { getFullName } from "@/utils/string";
 import {
   Avatar,
   Box,
+  ButtonBase,
   Card,
   Checkbox,
   Stack,
@@ -18,7 +19,9 @@ import {
 import { format } from "date-fns";
 import { useTranslation } from "next-i18next";
 import PropTypes from "prop-types";
+import { ArrowRight } from "react-feather";
 import { Scrollbar } from "src/components/scrollbar";
+import NextLink from "next/link";
 
 export const ReportTable = (props) => {
   const {
@@ -47,6 +50,7 @@ export const ReportTable = (props) => {
                 <TableCell>{t("common.score")}</TableCell>
                 <TableCell>{t("common.status")}</TableCell>
                 <TableCell>{t("common.updated-at")}</TableCell>
+                <TableCell>{t("common.action")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -74,6 +78,25 @@ export const ReportTable = (props) => {
                       </SeverityPill>
                     </TableCell>
                     <TableCell>{updatedAt}</TableCell>
+                    <TableCell>
+                      <Stack direction="row" gap={1}>
+                        <ButtonBase
+                          title={`Detail`}
+                          sx={{
+                            color: "rgb(108, 115, 127)",
+                            p: 1,
+                            ":hover": {
+                              background: "rgba(108, 115, 127, 0.04)",
+                              borderRadius: 8,
+                            },
+                          }}
+                          href={`/reports/${report.id}`}
+                          component={NextLink}
+                        >
+                          <ArrowRight />
+                        </ButtonBase>
+                      </Stack>
+                    </TableCell>
                   </TableRow>
                 );
               })}
