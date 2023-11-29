@@ -116,7 +116,7 @@ const Page = () => {
                   </CardItem>
                   <CardItem
                     name={t("common.severity-level")}
-                    content={report.severity_level || "-"}
+                    content={JSON.stringify(report.severity_level) || "-"}
                   />
                   <CardItem
                     name={t("common.resolve-message")}
