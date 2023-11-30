@@ -11,6 +11,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "src/hooks/use-auth";
 import { Layout as AuthLayout } from "src/layouts/auth/layout";
 import * as Yup from "yup";
+import NextLink from "next/link";
 
 const Page = () => {
   const { t } = useTranslation();
@@ -131,7 +132,14 @@ const Page = () => {
                 <Button fullWidth size="large" sx={{ mt: 3 }} type="submit" variant="contained">
                   {t("login")}
                 </Button>
-                <Button fullWidth size="large" sx={{ mt: 3 }}>
+                <Button
+                  fullWidth
+                  size="large"
+                  sx={{ mt: 3 }}
+                  component={NextLink}
+                  target="__blank"
+                  href="https://rts-pearl.vercel.app/auth/forgot-password"
+                >
                   {t("common.forgot-password")}
                 </Button>
               </form>

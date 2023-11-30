@@ -1,20 +1,26 @@
 import { ticketService } from "@/apis/ticket";
 import { CardItem } from "@/components/Card/card-item";
+import ConfidenceChart from "@/components/Chart/ConfidenceChart";
+import ImageSlider from "@/components/ImageSlider";
 import ComponentLoading from "@/components/Loading/ComponentLoading";
 import MapLink from "@/components/map-link";
 import { SeverityPill } from "@/components/severity-pill";
 import { reportStatusMap } from "@/constants/report-status";
+import { evidenceTypeMap } from "@/constants/task-status";
 import { ReportEvidence } from "@/sections/report/report-evidence";
 import { ReportForm } from "@/sections/report/report-form";
+import { ReportPrint } from "@/sections/report/report-print";
 import { ReportTask } from "@/sections/report/report-task";
 import { getFullName } from "@/utils/string";
 import {
   Box,
+  Button,
   ButtonBase,
   Card,
   CardHeader,
   Container,
   Stack,
+  Tooltip,
   Typography,
   capitalize,
 } from "@mui/material";
@@ -24,17 +30,26 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ArrowLeft } from "react-feather";
+import { useRef } from "react";
+import { useState } from "react";
+import { ArrowLeft, Printer } from "react-feather";
+import { useReactToPrint } from "react-to-print";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
 const Page = () => {
   const router = useRouter();
   const id = router.query?.id;
   const { t } = useTranslation();
+  const [slideIndex, setSlideIndex] = useState(0);
+  const componentRef = useRef();
 
   const { data: report, isLoading } = useQuery({
     queryKey: ["tickets", id],
     queryFn: () => ticketService.get(id),
+  });
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
   });
 
   return (
@@ -51,7 +66,7 @@ const Page = () => {
       >
         <Container maxWidth="xl">
           <Stack spacing={3}>
-            <Stack direction="row">
+            <Stack direction="row" justifyContent="space-between">
               <ButtonBase
                 onClick={() => {
                   router.back();
@@ -61,6 +76,11 @@ const Page = () => {
                 <ArrowLeft />
                 <Typography variant="body1">{t("common.back")}</Typography>
               </ButtonBase>
+              <Tooltip title="Print">
+                <Button variant="contained" size="small" onClick={handlePrint}>
+                  <Printer size={20} />
+                </Button>
+              </Tooltip>
             </Stack>
             {isLoading && <ComponentLoading />}
             {report && (
@@ -102,29 +122,23 @@ const Page = () => {
                   </CardItem>
                   <CardItem name={t("common.images")} hasChild>
                     <Stack direction="row" gap={1} flexWrap="wrap">
-                      {report.images.map((img) => (
-                        <img
-                          key={img}
-                          src={img}
-                          style={{
-                            aspectRatio: "1/1",
-                            width: "300px",
-                          }}
-                        />
-                      ))}
+                      <ImageSlider data={report.images} onSlideChange={setSlideIndex} />
                     </Stack>
                   </CardItem>
-                  <CardItem
-                    name={t("common.severity-level")}
-                    content={JSON.stringify(report.severity_level) || "-"}
-                  />
+                  <CardItem name={t("common.severity-level")} hasChild>
+                    {report.severity_level?.length > 0 ? (
+                      <ConfidenceChart data={report.severity_level[slideIndex]} />
+                    ) : (
+                      "-"
+                    )}
+                  </CardItem>
                   <CardItem
                     name={t("common.resolve-message")}
-                    content={report.resolve_message || "-"}
+                    content={report.resolve_message || "--"}
                   />
                   <CardItem
                     name={t("common.close-message")}
-                    content={report.close_message || "-"}
+                    content={report.close_message || "--"}
                   />
                   <CardItem name={capitalize(t("common.views"))} content={report.view_count} />
                   <CardItem name={t("common.vote")} content={report.score} lastItem />
@@ -132,6 +146,7 @@ const Page = () => {
                 <ReportEvidence report={report} />
                 <ReportTask id={id} />
                 <ReportForm data={report} />
+                <ReportPrint ref={componentRef} report={report} />
               </>
             )}
           </Stack>
