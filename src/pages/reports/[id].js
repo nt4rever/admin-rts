@@ -1,5 +1,7 @@
 import { ticketService } from "@/apis/ticket";
 import { CardItem } from "@/components/Card/card-item";
+import ConfidenceChart from "@/components/Chart/ConfidenceChart";
+import ImageSlider from "@/components/ImageSlider";
 import ComponentLoading from "@/components/Loading/ComponentLoading";
 import MapLink from "@/components/map-link";
 import { SeverityPill } from "@/components/severity-pill";
@@ -24,6 +26,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { ArrowLeft } from "react-feather";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
@@ -31,6 +34,7 @@ const Page = () => {
   const router = useRouter();
   const id = router.query?.id;
   const { t } = useTranslation();
+  const [slideIndex, setSlideIndex] = useState(0);
 
   const { data: report, isLoading } = useQuery({
     queryKey: ["tickets", id],
@@ -102,29 +106,23 @@ const Page = () => {
                   </CardItem>
                   <CardItem name={t("common.images")} hasChild>
                     <Stack direction="row" gap={1} flexWrap="wrap">
-                      {report.images.map((img) => (
-                        <img
-                          key={img}
-                          src={img}
-                          style={{
-                            aspectRatio: "1/1",
-                            width: "300px",
-                          }}
-                        />
-                      ))}
+                      <ImageSlider data={report.images} onSlideChange={setSlideIndex} />
                     </Stack>
                   </CardItem>
-                  <CardItem
-                    name={t("common.severity-level")}
-                    content={JSON.stringify(report.severity_level) || "-"}
-                  />
+                  <CardItem name={t("common.severity-level")} hasChild>
+                    {report.severity_level?.length > 0 ? (
+                      <ConfidenceChart data={report.severity_level[slideIndex]} />
+                    ) : (
+                      "-"
+                    )}
+                  </CardItem>
                   <CardItem
                     name={t("common.resolve-message")}
-                    content={report.resolve_message || "-"}
+                    content={report.resolve_message || "--"}
                   />
                   <CardItem
                     name={t("common.close-message")}
-                    content={report.close_message || "-"}
+                    content={report.close_message || "--"}
                   />
                   <CardItem name={capitalize(t("common.views"))} content={report.view_count} />
                   <CardItem name={t("common.vote")} content={report.score} lastItem />

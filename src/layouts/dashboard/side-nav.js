@@ -20,6 +20,7 @@ import { SideNavItem } from "./side-nav-item";
 import { useAuthStore } from "@/store/useAuthStore";
 import { getItems } from "./config";
 import { useTranslation } from "next-i18next";
+import { Cpu } from "react-feather";
 
 export const SideNav = (props) => {
   const { open, onClose } = props;
@@ -133,10 +134,10 @@ export const SideNav = (props) => {
           }}
         >
           <Typography color="neutral.100" variant="subtitle2">
-            Need more features?
+            RTS System
           </Typography>
           <Typography color="neutral.500" variant="body2">
-            Check out our Pro solution template.
+            A system assist in the evaluation and repair of road surface problems
           </Typography>
           <Box
             sx={{
@@ -155,7 +156,7 @@ export const SideNav = (props) => {
             component="a"
             endIcon={
               <SvgIcon fontSize="small">
-                <ArrowTopRightOnSquareIcon />
+                <Cpu />
               </SvgIcon>
             }
             fullWidth
@@ -164,7 +165,7 @@ export const SideNav = (props) => {
             target="_blank"
             variant="contained"
           >
-            Pro Live Preview
+            With AI Support
           </Button>
         </Box>
       </Box>

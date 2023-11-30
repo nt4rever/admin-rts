@@ -38,6 +38,7 @@
     "react-apexcharts": "1.4.0",
     "react-dom": "18.2.0",
     "react-feather": "^2.0.10",
+    "sass": "^1.69.5",
     "simplebar-react": "^3.2.1",
     "swiper": "^11.0.5",
     "yup": "1.0.0",
