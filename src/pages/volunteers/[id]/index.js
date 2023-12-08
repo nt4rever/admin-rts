@@ -2,6 +2,7 @@ import { managerService } from "@/apis/manager";
 import { volunteerService } from "@/apis/volunteer";
 import { CardItem } from "@/components/Card/card-item";
 import ComponentLoading from "@/components/Loading/ComponentLoading";
+import MapLink from "@/components/map-link";
 import { getFullName } from "@/utils/string";
 import { notifications } from "@mantine/notifications";
 import {
@@ -137,7 +138,10 @@ const Page = () => {
                   <CardHeader title={t("common.basic-information")} />
                   <CardItem name={t("common.email")} content={user.email} />
                   <CardItem name={t("common.phone-number")} content={user.phone_number} />
-                  <CardItem name={t("common.gender")} content={user.gender} />
+                  <CardItem
+                    name={t("common.gender")}
+                    content={t(`constraint.gender.${user.gender}`)}
+                  />
                   <CardItem name={t("common.address")} content={user.address} />
                   <CardItem
                     name={t("common.date-of-birth")}
@@ -148,6 +152,9 @@ const Page = () => {
                   <CardItem name={t("common.latitude")} content={user.location?.lat} />
                   <CardItem name={t("common.longitude")} content={user.location?.lng} />
                   <CardItem name={t("common.radius")} content={user.location?.radius} />
+                  <CardItem name={t("common.location")} hasChild>
+                    <MapLink lat={user.location?.lat} lng={user.location?.lng} />
+                  </CardItem>
                   <CardItem
                     name={t("common.created_at")}
                     content={format(new Date(user.created_at), "dd/MM/yyyy HH:mm")}

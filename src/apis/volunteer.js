@@ -22,7 +22,10 @@ const get = async (id) => {
 
 const update = async (payload) => {
   const { id, ...dto } = payload;
-  const { data } = await axiosClient.patch(`${VOLUNTEER_ENDPOINT.update}/${id}`, dto);
+  const { data } = await axiosClient.patch(`${VOLUNTEER_ENDPOINT.update}/${id}`, {
+    ...dto,
+    gender: dto.gender || undefined,
+  });
   return data;
 };
 
