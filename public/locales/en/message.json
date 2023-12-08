@@ -18,5 +18,7 @@
   "DB_11000": "Data has been existed in system",
   "update-fail": "Update fail",
   "update-successfully": "Update successfully",
-  "update-success": "Update successfully"
+  "update-success": "Update successfully",
+  "delete-account": "Account Deletion Confirmation",
+  "delete-account-hint": "Confirming deletion will remove the user&apos;s account and associated data. Contact to administrator to restore it!"
 }

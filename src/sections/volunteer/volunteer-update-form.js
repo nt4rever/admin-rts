@@ -1,5 +1,6 @@
 import { volunteerService } from "@/apis/volunteer";
 import { genders } from "@/constants/gender";
+import { useDeleteAccount } from "@/hooks/use-delete-account";
 import { notifications } from "@mantine/notifications";
 import {
   Button,
@@ -27,6 +28,7 @@ const VolunteerUpdateForm = ({ user }) => {
   const { t } = useTranslation();
   const mutation = useMutation({ mutationFn: volunteerService.update });
   const queryClient = useQueryClient();
+  const modelDeleteAccount = useDeleteAccount({ id: user?.id, type: "VOLUNTEER" });
 
   const formik = useFormik({
     initialValues: {
@@ -254,7 +256,10 @@ const VolunteerUpdateForm = ({ user }) => {
           )}
         </CardContent>
         <Divider />
-        <CardActions sx={{ px: 1, justifyContent: "flex-end" }}>
+        <CardActions sx={{ px: 1, justifyContent: "space-between" }}>
+          <Button variant="outlined" color="error" onClick={modelDeleteAccount}>
+            {t("common.delete-account")}
+          </Button>
           <Button variant="contained" type="submit">
             {t("common.submit")}
           </Button>

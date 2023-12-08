@@ -5,6 +5,7 @@ const VOLUNTEER_ENDPOINT = {
   get: "/volunteers",
   update: "/volunteers",
   create: "/volunteers",
+  delete: "/volunteers",
   list: "/volunteers/list",
 };
 
@@ -42,4 +43,9 @@ const list = async (params) => {
   return data;
 };
 
-export const volunteerService = { all, get, update, create, list };
+const remove = async (id) => {
+  const { data } = await axiosClient.delete(`${VOLUNTEER_ENDPOINT.delete}/${id}`);
+  return data;
+};
+
+export const volunteerService = { all, get, update, create, list, remove };
