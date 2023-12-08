@@ -19,6 +19,7 @@ import { createEmotionCache } from "src/utils/create-emotion-cache";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import "@/theme/global.scss";
+import { ModalsProvider } from "@mantine/modals";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -41,18 +42,20 @@ const App = (props) => {
       </Head>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <MantineProvider>
-          <Notifications position="top-center" zIndex={9999} />
-          <QueryClientProvider client={queryClient}>
-            <Hydrate state={pageProps.dehydratedState}>
-              <AuthProvider>
-                <ThemeProvider theme={theme}>
-                  <CssBaseline />
-                  {getLayout(<Component {...pageProps} />)}
-                </ThemeProvider>
-              </AuthProvider>
-              <DevTools />
-            </Hydrate>
-          </QueryClientProvider>
+          <ModalsProvider>
+            <Notifications position="top-center" zIndex={9999} />
+            <QueryClientProvider client={queryClient}>
+              <Hydrate state={pageProps.dehydratedState}>
+                <AuthProvider>
+                  <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    {getLayout(<Component {...pageProps} />)}
+                  </ThemeProvider>
+                </AuthProvider>
+                <DevTools />
+              </Hydrate>
+            </QueryClientProvider>
+          </ModalsProvider>
         </MantineProvider>
       </LocalizationProvider>
     </CacheProvider>

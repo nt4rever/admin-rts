@@ -136,7 +136,10 @@ const Page = () => {
                   <CardHeader title={t("common.basic-information")} />
                   <CardItem name={t("common.email")} content={user.email} />
                   <CardItem name={t("common.phone-number")} content={user.phone_number} />
-                  <CardItem name={t("common.gender")} content={user.gender} />
+                  <CardItem
+                    name={t("common.gender")}
+                    content={t(`constraint.gender.${user.gender}`)}
+                  />
                   <CardItem name={t("common.address")} content={user.address} />
                   <CardItem
                     name={t("common.date-of-birth")}

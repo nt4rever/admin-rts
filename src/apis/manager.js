@@ -5,6 +5,7 @@ const MANAGER_ENDPOINT = {
   get: "/managers",
   update: "/managers",
   create: "/managers",
+  delete: "/managers",
 };
 
 const area = async (payload) => {
@@ -20,7 +21,10 @@ const get = async (id) => {
 
 const update = async (payload) => {
   const { id, ...dto } = payload;
-  const { data } = await axiosClient.patch(`${MANAGER_ENDPOINT.update}/${id}`, dto);
+  const { data } = await axiosClient.patch(`${MANAGER_ENDPOINT.update}/${id}`, {
+    ...dto,
+    gender: dto.gender || undefined,
+  });
   return data;
 };
 
@@ -30,4 +34,9 @@ const create = async (payload) => {
   return data;
 };
 
-export const managerService = { area, get, update, create };
+const remove = async (id) => {
+  const { data } = await axiosClient.delete(`${MANAGER_ENDPOINT.delete}/${id}`);
+  return data;
+};
+
+export const managerService = { area, get, update, create, remove };
