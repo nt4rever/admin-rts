@@ -16,7 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { isValid } from "date-fns";
 import { useFormik } from "formik";
@@ -26,6 +26,7 @@ import * as Yup from "yup";
 const ManagerUpdateForm = ({ user }) => {
   const { t } = useTranslation();
   const mutation = useMutation({ mutationFn: managerService.update });
+  const queryClient = useQueryClient();
 
   const formik = useFormik({
     initialValues: {
@@ -76,6 +77,8 @@ const ManagerUpdateForm = ({ user }) => {
           title: t("message.update-fail"),
           color: "red",
         });
+      } finally {
+        queryClient.invalidateQueries(["managers"]);
       }
     },
   });
