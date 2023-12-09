@@ -20,5 +20,6 @@
   "update-successfully": "Update successfully",
   "update-success": "Update successfully",
   "delete-account": "Account Deletion Confirmation",
-  "delete-account-hint": "Confirming deletion will remove the user&apos;s account and associated data. Contact to administrator to restore it!"
+  "delete-account-hint": "Confirming deletion will remove the user&apos;s account and associated data. Contact to administrator to restore it!",
+  "please-select-report": "Please select the report that you want to export!"
 }

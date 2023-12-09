@@ -1,6 +1,7 @@
 import { ticketService } from "@/apis/ticket";
 import ComponentLoading from "@/components/Loading/ComponentLoading";
 import { ReportContext } from "@/contexts/report-context";
+import { useSelection } from "@/hooks/use-selection";
 import { ReportFilter } from "@/sections/report/report-filter";
 import { ReportTable } from "@/sections/report/report-table";
 import { useAuthStore } from "@/store/useAuthStore";
@@ -11,8 +12,11 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
 import { useCallback, useEffect, useState } from "react";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
+
+const useReportIds = (reports) => useMemo(() => reports?.map((report) => report.id), [reports]);
 
 const Page = () => {
   const router = useRouter();
@@ -43,6 +47,8 @@ const Page = () => {
     keepPreviousData: true,
   });
 
+  const reportsSelection = useSelection(useReportIds(data?.items));
+
   useEffect(() => {
     router.push(
       `?page=${page}&per_page=${rowsPerPage}&order=${filter.order}&status=${filter.status}`,
@@ -72,6 +78,7 @@ const Page = () => {
     setRowsPerPage(event.target.value);
     setPage(1);
   }, []);
+
   return (
     <>
       <Head>
@@ -90,7 +97,7 @@ const Page = () => {
               <Stack>
                 <Typography variant="h4">{t("common.report-management")}</Typography>
               </Stack>
-              <ReportFilter />
+              <ReportFilter reportSelected={reportsSelection.selected} />
               {isLoading && <ComponentLoading />}
               {data && (
                 <ReportTable
@@ -100,6 +107,11 @@ const Page = () => {
                   onRowsPerPageChange={handleRowsPerPageChange}
                   page={page - 1}
                   rowsPerPage={rowsPerPage}
+                  onDeselectAll={reportsSelection.handleDeselectAll}
+                  onDeselectOne={reportsSelection.handleDeselectOne}
+                  onSelectAll={reportsSelection.handleSelectAll}
+                  onSelectOne={reportsSelection.handleSelectOne}
+                  selected={reportsSelection.selected}
                 />
               )}
             </Stack>

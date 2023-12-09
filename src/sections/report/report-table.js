@@ -31,9 +31,15 @@ export const ReportTable = (props) => {
     onRowsPerPageChange,
     page = 0,
     rowsPerPage = 0,
+    onDeselectAll,
+    onDeselectOne,
+    onSelectAll,
+    onSelectOne,
+    selected = [],
   } = props;
-
   const { t } = useTranslation();
+  const selectedSome = selected.length > 0 && selected.length < items.length;
+  const selectedAll = items.length > 0 && selected.length === items.length;
 
   return (
     <Card>
@@ -43,7 +49,17 @@ export const ReportTable = (props) => {
             <TableHead>
               <TableRow>
                 <TableCell padding="checkbox">
-                  <Checkbox />
+                  <Checkbox
+                    checked={selectedAll}
+                    indeterminate={selectedSome}
+                    onChange={(event) => {
+                      if (event.target.checked) {
+                        onSelectAll?.();
+                      } else {
+                        onDeselectAll?.();
+                      }
+                    }}
+                  />
                 </TableCell>
                 <TableCell>{t("common.created-by")}</TableCell>
                 <TableCell>{t("common.title")}</TableCell>
@@ -55,12 +71,22 @@ export const ReportTable = (props) => {
             </TableHead>
             <TableBody>
               {items.map((report) => {
+                const isSelected = selected.includes(report.id);
                 const updatedAt = format(new Date(report.updated_at), "dd/MM/yyyy HH:mm");
 
                 return (
                   <TableRow hover key={report.id}>
                     <TableCell padding="checkbox">
-                      <Checkbox />
+                      <Checkbox
+                        checked={isSelected}
+                        onChange={(event) => {
+                          if (event.target.checked) {
+                            onSelectOne?.(report.id);
+                          } else {
+                            onDeselectOne?.(report.id);
+                          }
+                        }}
+                      />
                     </TableCell>
                     <TableCell>
                       <Stack alignItems="center" direction="row" spacing={2}>
