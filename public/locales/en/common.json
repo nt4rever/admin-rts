@@ -108,5 +108,6 @@
   "assign-task": "Assign task for",
   "edit-area-manager": "Edit area manager",
   "edit-volunteer": "Update volunteer",
-  "delete-account": "Delete this account"
+  "delete-account": "Delete this account",
+  "export-xlsx": "Export Excel"
 }

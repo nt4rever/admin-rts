@@ -6,6 +6,7 @@ const TICKET_ENDPOINT = {
   get: "/tickets",
   update: "/tickets",
   assign: (id) => `/tickets/${id}/assign`,
+  excel: "/exports/reports",
 };
 
 const all = async (params) => {
@@ -38,4 +39,11 @@ const assign = async (payload) => {
   return data;
 };
 
-export const ticketService = { all, get, update, assign };
+const exportExcel = async (payload) => {
+  const { data } = await axiosClient.post(TICKET_ENDPOINT.excel, payload, {
+    responseType: "blob",
+  });
+  return data;
+};
+
+export const ticketService = { all, get, update, assign, exportExcel };
