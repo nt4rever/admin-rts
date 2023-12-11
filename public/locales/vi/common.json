@@ -112,5 +112,10 @@
   "edit-area-manager": "Cập nhật quản lý khu vực",
   "edit-volunteer": "Cập nhật tình nguyện viên",
   "delete-account": "Xoá tài khoản này",
-  "export-xlsx": "Xuất Excel"
+  "export-xlsx": "Xuất Excel",
+  "post-management": "Quản lý bài đăng",
+  "category": "Danh mục",
+  "add-post": "Tạo bài đăng",
+  "brief-content": "Nội dung tóm tắt",
+  "cover-image": "Ảnh bìa"
 }
