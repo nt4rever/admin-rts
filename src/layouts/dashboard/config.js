@@ -5,7 +5,7 @@ import MapIcon from "@heroicons/react/24/solid/MapIcon";
 import UserIcon from "@heroicons/react/24/solid/UserIcon";
 import UsersIcon from "@heroicons/react/24/solid/UsersIcon";
 import { SvgIcon } from "@mui/material";
-import ShieldCheckIcon from "@heroicons/react/24/solid/ShieldCheckIcon";
+import NewspaperIcon from "@heroicons/react/24/solid/NewspaperIcon";
 
 export const items = [
   {
@@ -48,16 +48,16 @@ export const items = [
       </SvgIcon>
     ),
   },
-  // {
-  //   role: [ROLES.AreaManager],
-  //   title: "Tasks",
-  //   path: "/tasks",
-  //   icon: (
-  //     <SvgIcon fontSize="small">
-  //       <ShieldCheckIcon />
-  //     </SvgIcon>
-  //   ),
-  // },
+  {
+    role: [ROLES.Admin],
+    title: "Posts",
+    path: "/posts",
+    icon: (
+      <SvgIcon fontSize="small">
+        <NewspaperIcon />
+      </SvgIcon>
+    ),
+  },
   {
     role: [ROLES.AreaManager],
     title: "Volunteers",

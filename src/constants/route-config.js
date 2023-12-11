@@ -15,6 +15,10 @@ const routeConfig = {
     [RouteNames.managersEdit]: RouteNames.managersEdit,
     [RouteNames.managersAdd]: RouteNames.managersAdd,
     [RouteNames.areas]: RouteNames.areas,
+    [RouteNames.postCategories]: RouteNames.postCategories,
+    [RouteNames.posts]: RouteNames.posts,
+    [RouteNames.postAdd]: RouteNames.postAdd,
+    [RouteNames.postEdit]: RouteNames.postEdit,
   },
   [ROLES.AreaManager]: {
     default: RouteNames.index,
