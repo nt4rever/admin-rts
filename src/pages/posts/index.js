@@ -24,6 +24,7 @@ const Page = () => {
         page,
         per_page: rowsPerPage,
       }),
+    keepPreviousData: true,
   });
 
   const handlePageChange = useCallback((event, value) => {
