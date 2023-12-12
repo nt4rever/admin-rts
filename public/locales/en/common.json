@@ -109,5 +109,12 @@
   "edit-area-manager": "Edit area manager",
   "edit-volunteer": "Update volunteer",
   "delete-account": "Delete this account",
-  "export-xlsx": "Export Excel"
+  "export-xlsx": "Export Excel",
+  "post-management": "Post management",
+  "category": "Category",
+  "add-post": "Create a new post",
+  "brief-content": "Brief content",
+  "cover-image": "Cover image",
+  "placeholder-post-content": "Write post content here...",
+  "edit-post": "Edit bài đăng"
 }

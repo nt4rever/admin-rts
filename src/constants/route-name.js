@@ -13,8 +13,10 @@ export const RouteNames = {
   volunteersAdd: "/volunteers/add",
   reports: "/reports",
   reportsEdit: "/reports/[id]",
-  companies: "/companies",
-  settings: "/settings",
+  postCategories: "/post-categories",
+  posts: "/posts",
+  postAdd: "/posts/add",
+  postEdit: "/posts/[id]/edit",
 };
 
 export default RouteNames;

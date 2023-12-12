@@ -11,7 +11,8 @@
     "Account": "Account",
     "Volunteers": "Volunteers",
     "Reports": "Reports",
-    "Tasks": "Tasks"
+    "Tasks": "Tasks",
+    "Posts": "Posts"
   },
   "report": {
     "status": {

@@ -33,5 +33,6 @@
     "max": "Maximum radius is 10000m",
     "min": "Minimum radius is 100m",
     "required": "Radius is required"
-  }
+  },
+  "url": "Please input valid URL"
 }
