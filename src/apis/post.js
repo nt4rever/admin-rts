@@ -1,4 +1,5 @@
 import axiosClient from "@/libs/axios";
+import { removeEmpty } from "@/utils/remove-empty";
 
 const POST_ENDPOINT = {
   all: "/posts",
@@ -17,7 +18,7 @@ const categories = async () => {
 };
 
 const create = async (payload) => {
-  const dto = { ...payload };
+  const dto = removeEmpty(payload);
   const { data } = await axiosClient.post(POST_ENDPOINT.create, dto);
   return data;
 };

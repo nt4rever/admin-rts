@@ -33,5 +33,6 @@
     "max": "Bán kính tối đa là 10000m",
     "min": "Bán kính tối thiểu là 100m",
     "required": "Bán kính là bắt buộc"
-  }
+  },
+  "url": "Vui lòng nhập URL hợp lệ"
 }

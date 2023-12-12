@@ -114,5 +114,6 @@
   "category": "Category",
   "add-post": "Create a new post",
   "brief-content": "Brief content",
-  "cover-image": "Cover image"
+  "cover-image": "Cover image",
+  "placeholder-post-content": "Write post content here..."
 }

@@ -1,6 +1,7 @@
 import { postService } from "@/apis/post";
 import { volunteerService } from "@/apis/volunteer";
 import Editor from "@/components/editor";
+import { removeEmpty } from "@/utils/remove-empty";
 import { slugify } from "@/utils/string";
 import { notifications } from "@mantine/notifications";
 import {
@@ -13,6 +14,7 @@ import {
   Container,
   Divider,
   FormControl,
+  FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
@@ -59,25 +61,41 @@ const Page = () => {
       content: "",
       picture: "",
       slug: "",
-      keyword_SEO: "",
-      description_SEO: "",
+      keyword_SEO: "rts,road-surface,safety",
+      description_SEO: "rts...",
       submit: null,
     },
     validationSchema: new Yup.object({
-      category: Yup.string().required(),
+      category: Yup.string().nullable(),
       title: Yup.string()
-        .required()
-        .max(50, t("validation.common.max-length", { max: 50 })),
+        .required(t("validation.common.title-required"))
+        .max(200, t("validation.common.max-length", { max: 200 })),
+      brief_content: Yup.string()
+        .max(500, t("validation.common.max-length", { max: 500 }))
+        .nullable(),
+      content: Yup.string()
+        .max(100000, t("validation.common.max-length", { max: 100000 }))
+        .required(),
+      picture: Yup.string()
+        .url(t("validation.url"))
+        .max(200, t("validation.common.max-length", { max: 200 }))
+        .nullable(),
+      keyword_SEO: Yup.string()
+        .max(200, t("validation.common.max-length", { max: 500 }))
+        .nullable(),
+      description_SEO: Yup.string()
+        .max(500, t("validation.common.max-length", { max: 500 }))
+        .nullable(),
     }),
     onSubmit: async (values, helpers) => {
       try {
-        // await mutation.mutateAsync(values);
+        await mutation.mutateAsync(values);
         notifications.show({
           title: t("message.create-success"),
           color: "green",
           autoClose: 2000,
         });
-        // router.back();
+        router.back();
       } catch (err) {
         if (isAxiosError(err)) {
           helpers.setStatus({ success: false });
@@ -96,7 +114,7 @@ const Page = () => {
 
   const onTitleChange = (e) => {
     const value = e.target.value;
-    const slug = value?.trim() ? `${slugify(value)}-${Date.now()}` : "";
+    let slug = value?.trim() ? `${slugify(value)}-${Date.now()}` : "";
     formik.setFieldValue("title", value);
     formik.setFieldValue("slug", slug);
   };
@@ -145,6 +163,9 @@ const Page = () => {
                         >
                           {postCategoryItems}
                         </Select>
+                        <FormHelperText error>
+                          {formik.touched.category && formik.errors.category}
+                        </FormHelperText>
                       </FormControl>
                     </Grid>
                     <Grid xs={12} item>
@@ -152,6 +173,7 @@ const Page = () => {
                         fullWidth
                         label={t("common.title")}
                         name="title"
+                        required
                         error={!!(formik.touched.title && formik.errors.title)}
                         helperText={formik.touched.title && formik.errors.title}
                         value={formik.values.title}
@@ -188,7 +210,11 @@ const Page = () => {
                       <Editor
                         content={formik.values.content}
                         onChange={(v) => formik.setFieldValue("content", v)}
+                        placeholder={t("common.placeholder-post-content")}
                       />
+                      <Typography color="error" sx={{ mt: 1 }} variant="body2">
+                        {formik.touched.content && formik.errors.content}
+                      </Typography>
                     </Grid>
                     <Grid xs={12} item>
                       <TextField
@@ -207,6 +233,7 @@ const Page = () => {
                         fullWidth
                         label="Keyword SEO"
                         name="keyword_SEO"
+                        required
                         error={!!(formik.touched.keyword_SEO && formik.errors.keyword_SEO)}
                         helperText={formik.touched.keyword_SEO && formik.errors.keyword_SEO}
                         value={formik.values.keyword_SEO}
@@ -219,6 +246,7 @@ const Page = () => {
                         fullWidth
                         label="Description SEO"
                         name="description_SEO"
+                        required
                         error={!!(formik.touched.description_SEO && formik.errors.description_SEO)}
                         helperText={formik.touched.description_SEO && formik.errors.description_SEO}
                         value={formik.values.description_SEO}

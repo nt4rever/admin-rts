@@ -11,7 +11,7 @@ import { Image as UploadImage } from "react-feather";
 import { useCallback } from "react";
 import Placeholder from "@tiptap/extension-placeholder";
 
-export default function Editor({ content, onChange }) {
+export default function Editor({ content, onChange, placeholder }) {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -23,7 +23,7 @@ export default function Editor({ content, onChange }) {
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       Image,
       Placeholder.configure({
-        placeholder: "Write something …",
+        placeholder: placeholder ?? "Write something...",
       }),
     ],
     content,
@@ -45,7 +45,12 @@ export default function Editor({ content, onChange }) {
   );
 
   return (
-    <RichTextEditor editor={editor}>
+    <RichTextEditor
+      editor={editor}
+      style={{
+        minHeight: 300,
+      }}
+    >
       <RichTextEditor.Toolbar sticky stickyOffset={60}>
         <RichTextEditor.ControlsGroup>
           <RichTextEditor.Bold />
