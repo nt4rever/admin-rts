@@ -17,14 +17,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { useFormik } from "formik";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 
 const PostFormEdit = ({ data }) => {
+  const router = useRouter();
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const { data: postCategories } = useQuery({
     queryKey: ["post-categories"],
@@ -43,6 +46,7 @@ const PostFormEdit = ({ data }) => {
 
   const formik = useFormik({
     initialValues: {
+      id: data?.id,
       category: data?.category?.id,
       title: data?.title,
       brief_content: data?.brief_content,
@@ -96,6 +100,8 @@ const PostFormEdit = ({ data }) => {
           title: t("message.update-fail"),
           color: "red",
         });
+      } finally {
+        queryClient.invalidateQueries(["posts"]);
       }
     },
   });

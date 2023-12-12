@@ -31,8 +31,8 @@ const create = async (payload) => {
 };
 
 const update = async (payload) => {
-  const dto = removeEmpty(payload);
-  const { data } = await axiosClient.patch(POST_ENDPOINT.update, dto);
+  const { id, ...dto } = payload;
+  const { data } = await axiosClient.patch(`${POST_ENDPOINT.update}/${id}`, removeEmpty(dto));
   return data;
 };
 
