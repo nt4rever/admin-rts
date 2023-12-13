@@ -61,8 +61,8 @@ const Page = () => {
       content: "",
       picture: "",
       slug: "",
-      keyword_SEO: "rts,road-surface,safety",
-      description_SEO: "rts...",
+      keyword_SEO: "",
+      description_SEO: "",
       submit: null,
     },
     validationSchema: new Yup.object({
@@ -75,7 +75,7 @@ const Page = () => {
         .nullable(),
       content: Yup.string()
         .max(100000, t("validation.common.max-length", { max: 100000 }))
-        .required(),
+        .required(t("validation.common.content-required")),
       picture: Yup.string()
         .url(t("validation.url"))
         .max(200, t("validation.common.max-length", { max: 200 }))
@@ -233,7 +233,6 @@ const Page = () => {
                         fullWidth
                         label="Keyword SEO"
                         name="keyword_SEO"
-                        required
                         error={!!(formik.touched.keyword_SEO && formik.errors.keyword_SEO)}
                         helperText={formik.touched.keyword_SEO && formik.errors.keyword_SEO}
                         value={formik.values.keyword_SEO}
@@ -246,7 +245,6 @@ const Page = () => {
                         fullWidth
                         label="Description SEO"
                         name="description_SEO"
-                        required
                         error={!!(formik.touched.description_SEO && formik.errors.description_SEO)}
                         helperText={formik.touched.description_SEO && formik.errors.description_SEO}
                         value={formik.values.description_SEO}

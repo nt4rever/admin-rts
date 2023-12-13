@@ -67,7 +67,7 @@ const PostFormEdit = ({ data }) => {
         .nullable(),
       content: Yup.string()
         .max(100000, t("validation.common.max-length", { max: 100000 }))
-        .required(),
+        .required(t("validation.common.content-required")),
       picture: Yup.string()
         .url(t("validation.url"))
         .max(200, t("validation.common.max-length", { max: 200 }))
@@ -199,7 +199,6 @@ const PostFormEdit = ({ data }) => {
                 fullWidth
                 label="Keyword SEO"
                 name="keyword_SEO"
-                required
                 error={!!(formik.touched.keyword_SEO && formik.errors.keyword_SEO)}
                 helperText={formik.touched.keyword_SEO && formik.errors.keyword_SEO}
                 value={formik.values.keyword_SEO}
@@ -212,7 +211,6 @@ const PostFormEdit = ({ data }) => {
                 fullWidth
                 label="Description SEO"
                 name="description_SEO"
-                required
                 error={!!(formik.touched.description_SEO && formik.errors.description_SEO)}
                 helperText={formik.touched.description_SEO && formik.errors.description_SEO}
                 value={formik.values.description_SEO}

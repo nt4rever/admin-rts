@@ -18,7 +18,7 @@ const Page = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["post", { page, rowsPerPage }],
+    queryKey: ["posts", { page, rowsPerPage }],
     queryFn: () =>
       postService.all({
         page,

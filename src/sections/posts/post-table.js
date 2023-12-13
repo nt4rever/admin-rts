@@ -1,3 +1,6 @@
+import { postService } from "@/apis/post";
+import { buttonActionSx } from "@/theme/common";
+import { modals } from "@mantine/modals";
 import {
   Box,
   ButtonBase,
@@ -9,13 +12,15 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Typography,
   capitalize,
 } from "@mui/material";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useTranslation } from "next-i18next";
 import NextLink from "next/link";
 import PropTypes from "prop-types";
-import { Edit } from "react-feather";
+import { Edit, Trash } from "react-feather";
 import { Scrollbar } from "src/components/scrollbar";
 
 export const PostTable = (props) => {
@@ -29,6 +34,30 @@ export const PostTable = (props) => {
   } = props;
 
   const { t } = useTranslation();
+  const mutationDelete = useMutation({
+    mutationFn: postService.deletePost,
+  });
+  const queryClient = useQueryClient();
+
+  const handleDelete = (id) => {
+    modals.openConfirmModal({
+      title: t("message.confirm-action"),
+      children: <Typography>{t("message.warning-delete")}</Typography>,
+      zIndex: 9999,
+      confirmProps: { color: "red" },
+      labels: { confirm: t("common.confirm"), cancel: t("common.cancel") },
+      onConfirm: () => {
+        mutationDelete.mutate(
+          { id },
+          {
+            onSettled: () => {
+              queryClient.invalidateQueries(["posts"]);
+            },
+          }
+        );
+      },
+    });
+  };
 
   return (
     <Card>
@@ -55,17 +84,17 @@ export const PostTable = (props) => {
                     <TableCell>{post.view_count}</TableCell>
                     <TableCell>{updatedAt}</TableCell>
                     <TableCell>
-                      <Stack direction="row" gap={1}>
+                      <Stack direction="row" gap={0.3}>
+                        <ButtonBase
+                          title={`Delete`}
+                          sx={{ ...buttonActionSx, color: "#f44336" }}
+                          onClick={() => handleDelete(post.id)}
+                        >
+                          <Trash />
+                        </ButtonBase>
                         <ButtonBase
                           title={`Edit`}
-                          sx={{
-                            color: "rgb(108, 115, 127)",
-                            p: 1,
-                            ":hover": {
-                              background: "rgba(108, 115, 127, 0.04)",
-                              borderRadius: 8,
-                            },
-                          }}
+                          sx={buttonActionSx}
                           href={`/posts/${post.id}/edit`}
                           component={NextLink}
                         >
