@@ -19,6 +19,8 @@ const routeConfig = {
     [RouteNames.posts]: RouteNames.posts,
     [RouteNames.postAdd]: RouteNames.postAdd,
     [RouteNames.postEdit]: RouteNames.postEdit,
+    [RouteNames.users]: RouteNames.users,
+    [RouteNames.userEdit]: RouteNames.userEdit,
   },
   [ROLES.AreaManager]: {
     default: RouteNames.index,
