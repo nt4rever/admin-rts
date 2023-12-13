@@ -6,6 +6,7 @@ const POST_ENDPOINT = {
   all: "/posts",
   create: "/posts",
   update: "/posts",
+  delete: "/posts",
   categories: "/posts/categories",
 };
 
@@ -36,4 +37,10 @@ const update = async (payload) => {
   return data;
 };
 
-export const postService = { get, all, categories, create, update };
+const deletePost = async (payload) => {
+  const { id } = payload;
+  const { data } = await axiosClient.delete(`${POST_ENDPOINT.delete}/${id}`);
+  return data;
+};
+
+export const postService = { get, all, categories, create, update, deletePost };

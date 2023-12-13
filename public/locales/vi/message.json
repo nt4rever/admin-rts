@@ -21,5 +21,7 @@
   "update-success": "Cập nhật thành công",
   "delete-account": "Xác nhận xoá tài khoản",
   "delete-account-hint": "Xác nhận xóa sẽ loại bỏ tài khoản của người dùng và dữ liệu liên quan. Liên hệ với quản trị viên để khôi phục nếu cần!",
-  "please-select-report": "Vui lòng chọn báo cáo mà bạn muốn xuất excel"
+  "please-select-report": "Vui lòng chọn báo cáo mà bạn muốn xuất excel",
+  "confirm-action": "Vui lòng xác nhận hành động",
+  "warning-delete": "Bạn có chắc chắn muốn xoá mục này"
 }

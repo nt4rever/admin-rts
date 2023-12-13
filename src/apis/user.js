@@ -4,6 +4,7 @@ const USER_ENDPOINT = {
   me: "/users/me",
   updateProfile: "/users/profile",
   uploadAvatar: "/users/avatar",
+  users: "/users",
 };
 
 const me = async () => {
@@ -26,4 +27,9 @@ const uploadAvatar = async (dto) => {
   });
 };
 
-export const userService = { me, updateProfile, uploadAvatar };
+const list = async (params = undefined) => {
+  const { data } = await axiosClient.get(USER_ENDPOINT.users, { params });
+  return data;
+};
+
+export const userService = { me, updateProfile, uploadAvatar, list };

@@ -1,16 +1,13 @@
-import { postService } from "@/apis/post";
-import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
-import { Box, Button, Container, Stack, SvgIcon, Typography } from "@mui/material";
+import { userService } from "@/apis/user";
+import ComponentLoading from "@/components/Loading/ComponentLoading";
+import { UserTable } from "@/sections/user/user-table";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
-import NextLink from "next/link";
-import ComponentLoading from "@/components/Loading/ComponentLoading";
-import { PostTable } from "@/sections/posts/post-table";
-import { useCallback } from "react";
 
 const Page = () => {
   const { t } = useTranslation();
@@ -18,9 +15,9 @@ const Page = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["posts", { page, rowsPerPage }],
+    queryKey: ["users", { page, rowsPerPage }],
     queryFn: () =>
-      postService.all({
+      userService.list({
         page,
         per_page: rowsPerPage,
       }),
@@ -39,7 +36,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Posts | RTS Admin</title>
+        <title>Users | RTS Admin</title>
       </Head>
       <Box
         component="main"
@@ -52,26 +49,12 @@ const Page = () => {
           <Stack spacing={3}>
             <Stack direction="row" justifyContent="space-between" spacing={4}>
               <Stack spacing={1}>
-                <Typography variant="h4">{t("common.post-management")}</Typography>
+                <Typography variant="h4">{t("common.user-management")}</Typography>
               </Stack>
-              <div>
-                <Button
-                  startIcon={
-                    <SvgIcon fontSize="small">
-                      <PlusIcon />
-                    </SvgIcon>
-                  }
-                  variant="contained"
-                  component={NextLink}
-                  href="/posts/add"
-                >
-                  {t("common.add")}
-                </Button>
-              </div>
             </Stack>
             {isLoading && <ComponentLoading />}
             {data && (
-              <PostTable
+              <UserTable
                 count={data.meta.item_count}
                 items={data.items}
                 onPageChange={handlePageChange}
