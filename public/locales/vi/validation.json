@@ -24,7 +24,9 @@
     "last-name-required": "Tên là bắt buộc"
   },
   "area": {
-    "required": "Vui lòng chọn khu vực"
+    "required": "Vui lòng chọn khu vực",
+    "name": "Tên khu vực là bắt buộc",
+    "address": "Địa chỉ là bắt buộc"
   },
   "comment": {
     "required": "Vui lòng nhập bình luận của bạn"

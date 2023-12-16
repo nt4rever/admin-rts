@@ -24,7 +24,9 @@
     "last-name-required": "Last name is required"
   },
   "area": {
-    "required": "Please choose area"
+    "required": "Please choose area",
+    "name": "Name is  required",
+    "address": "Address is required"
   },
   "comment": {
     "required": "Please fill your comment before submit"

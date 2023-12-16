@@ -120,5 +120,8 @@
   "cover-image": "Ảnh bìa",
   "placeholder-post-content": "Nội dung bài viết....",
   "edit-post": "Chỉnh sửa bài đăng",
-  "user-management": "Quản lý người dùng"
+  "user-management": "Quản lý người dùng",
+  "add-area": "Tạo khu vực",
+  "edit-area": "Cập nhật thông tin khu vực",
+  "delete-area": "Xoá khu vực này"
 }

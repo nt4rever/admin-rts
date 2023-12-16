@@ -3,6 +3,8 @@ export const RouteNames = {
   index: "/",
   account: "/account",
   areas: "/areas",
+  areasAdd: "/areas/add",
+  areasEdit: "/areas/[id]/edit",
   managers: "/managers",
   managersView: "/managers/[id]",
   managersEdit: "/managers/[id]/edit",

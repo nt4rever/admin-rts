@@ -117,5 +117,8 @@
   "cover-image": "Cover image",
   "placeholder-post-content": "Write post content here...",
   "edit-post": "Edit post",
-  "user-management": "User management"
+  "user-management": "User management",
+  "add-area": "Create a new area",
+  "edit-area": "Update area information",
+  "delete-area": "Delete this area"
 }

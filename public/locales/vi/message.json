@@ -23,5 +23,7 @@
   "delete-account-hint": "Xác nhận xóa sẽ loại bỏ tài khoản của người dùng và dữ liệu liên quan. Liên hệ với quản trị viên để khôi phục nếu cần!",
   "please-select-report": "Vui lòng chọn báo cáo mà bạn muốn xuất excel",
   "confirm-action": "Vui lòng xác nhận hành động",
-  "warning-delete": "Bạn có chắc chắn muốn xoá mục này"
+  "warning-delete": "Bạn có chắc chắn muốn xoá mục này",
+  "delete-area": "Xác nhận xoá khu vực",
+  "delete-area-hint": "Xác nhận xóa sẽ loại bỏ khu vực này và dữ liệu liên quan. Liên hệ với quản trị viên để khôi phục nếu cần!"
 }

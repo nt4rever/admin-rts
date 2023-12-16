@@ -23,5 +23,7 @@
   "delete-account-hint": "Confirming deletion will remove the user&apos;s account and associated data. Contact to administrator to restore it!",
   "please-select-report": "Please select the report that you want to export!",
   "confirm-action": "Please confirm your action",
-  "warning-delete": "Are you sure you want to delete this item?"
+  "warning-delete": "Are you sure you want to delete this item?",
+  "delete-area": "Area delete confirmation",
+  "delete-area-hint": "Confirming deletion will remove the area and associated data. Contact to administrator to restore it!"
 }
