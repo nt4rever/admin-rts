@@ -74,8 +74,8 @@ export const ReportEvidence = (props) => {
                         key={img}
                         src={img}
                         style={{
-                          aspectRatio: "1/1",
-                          width: "200px",
+                          // aspectRatio: "1/1",
+                          width: "300px",
                         }}
                       />
                     ))}

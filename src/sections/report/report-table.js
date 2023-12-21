@@ -1,6 +1,7 @@
 import { SeverityPill } from "@/components/severity-pill";
 import { reportStatusMap } from "@/constants/report-status";
 import { getFullName } from "@/utils/string";
+import { calcAiScore } from "@/utils/calcAiScore";
 import {
   Avatar,
   Box,
@@ -14,6 +15,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { format } from "date-fns";
@@ -22,6 +24,8 @@ import PropTypes from "prop-types";
 import { ArrowRight } from "react-feather";
 import { Scrollbar } from "src/components/scrollbar";
 import NextLink from "next/link";
+import Image from "next/image";
+import Link from "next/link";
 
 export const ReportTable = (props) => {
   const {
@@ -63,16 +67,17 @@ export const ReportTable = (props) => {
                 </TableCell>
                 <TableCell>{t("common.created-by")}</TableCell>
                 <TableCell>{t("common.title")}</TableCell>
-                <TableCell>{t("common.score")}</TableCell>
+                <TableCell>{t("common.ai-score")}</TableCell>
                 <TableCell>{t("common.status")}</TableCell>
-                <TableCell>{t("common.updated-at")}</TableCell>
+                <TableCell>{t("common.created_at")}</TableCell>
                 <TableCell>{t("common.action")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {items.map((report) => {
                 const isSelected = selected.includes(report.id);
-                const updatedAt = format(new Date(report.updated_at), "dd/MM/yyyy HH:mm");
+                const createdAt = format(new Date(report.updated_at), "dd/MM/yyyy HH:mm");
+                const aiEvaluate = calcAiScore(report.severity_level);
 
                 return (
                   <TableRow hover key={report.id}>
@@ -90,20 +95,47 @@ export const ReportTable = (props) => {
                     </TableCell>
                     <TableCell>
                       <Stack alignItems="center" direction="row" spacing={2}>
-                        <Avatar src={report.created_by.avatar} />
+                        {/* <Avatar src={report.created_by.avatar} /> */}
                         <Typography variant="subtitle2">
                           {getFullName(report.created_by.first_name, report.created_by.last_name)}
                         </Typography>
                       </Stack>
                     </TableCell>
-                    <TableCell>{report.title}</TableCell>
-                    <TableCell>{report.score}</TableCell>
+                    <TableCell>
+                      <Tooltip
+                        title={`${report.score} ${t("common.vote").toLowerCase()}`}
+                        placement="bottom-end"
+                      >
+                        <Link href={`/reports/${report.id}`} className="common-link">
+                          {report.title}
+                        </Link>
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell>
+                      {aiEvaluate ? (
+                        <SeverityPill color={aiEvaluate.color}>
+                          <span>{aiEvaluate.score}</span>
+                          <Tooltip title={t("common.powered-by-ai")} placement="top">
+                            <Image
+                              src={
+                                "https://www.gstatic.com/lamda/images/sparkle_resting_v2_darkmode_2bdb7df2724e450073ede.gif"
+                              }
+                              alt="ai-effect"
+                              width={20}
+                              height={20}
+                            />
+                          </Tooltip>
+                        </SeverityPill>
+                      ) : (
+                        "--"
+                      )}
+                    </TableCell>
                     <TableCell>
                       <SeverityPill color={reportStatusMap[report.status]}>
                         {t(`constraint.report.status.${report.status}`)}
                       </SeverityPill>
                     </TableCell>
-                    <TableCell>{updatedAt}</TableCell>
+                    <TableCell>{createdAt}</TableCell>
                     <TableCell>
                       <Stack direction="row" gap={1}>
                         <ButtonBase

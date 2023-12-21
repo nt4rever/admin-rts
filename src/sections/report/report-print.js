@@ -53,7 +53,7 @@ export const ReportPrint = forwardRef((props, ref) => {
                 key={img}
                 src={img}
                 style={{
-                  aspectRatio: "1/1",
+                  // aspectRatio: "1/1",
                   width: "300px",
                 }}
               />
@@ -94,8 +94,8 @@ export const ReportPrint = forwardRef((props, ref) => {
                     key={img}
                     src={img}
                     style={{
-                      aspectRatio: "1/1",
-                      width: "200px",
+                      // aspectRatio: "1/1",
+                      width: "300px",
                     }}
                   />
                 ))}

@@ -120,5 +120,7 @@
   "user-management": "User management",
   "add-area": "Create a new area",
   "edit-area": "Update area information",
-  "delete-area": "Delete this area"
+  "delete-area": "Delete this area",
+  "powered-by-ai": "Powered by AI",
+  "ai-score": "AI Score"
 }

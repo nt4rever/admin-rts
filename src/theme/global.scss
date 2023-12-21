@@ -46,3 +46,11 @@
   align-items: center;
   color: rgb(17, 25, 39);
 }
+
+.common-link {
+  text-decoration: none;
+  color: #111927;
+  &:hover {
+    text-decoration: underline;
+  }
+}
