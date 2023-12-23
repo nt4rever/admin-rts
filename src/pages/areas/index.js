@@ -9,6 +9,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import NextLink from "next/link";
+import EmptyData from "@/components/empty-data";
 
 const Page = () => {
   const { t } = useTranslation();
@@ -51,7 +52,7 @@ const Page = () => {
               </div>
             </Stack>
             {isLoading && <ComponentLoading />}
-            {data && <AreaTable items={data} />}
+            {data?.length ? <AreaTable items={data} /> : <EmptyData />}
           </Stack>
         </Container>
       </Box>

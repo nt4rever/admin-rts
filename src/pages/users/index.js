@@ -1,5 +1,6 @@
 import { userService } from "@/apis/user";
 import ComponentLoading from "@/components/Loading/ComponentLoading";
+import EmptyData from "@/components/empty-data";
 import { UserTable } from "@/sections/user/user-table";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
@@ -53,7 +54,7 @@ const Page = () => {
               </Stack>
             </Stack>
             {isLoading && <ComponentLoading />}
-            {data && (
+            {data?.items?.length ? (
               <UserTable
                 count={data.meta.item_count}
                 items={data.items}
@@ -62,6 +63,8 @@ const Page = () => {
                 page={page - 1}
                 rowsPerPage={rowsPerPage}
               />
+            ) : (
+              <EmptyData />
             )}
           </Stack>
         </Container>

@@ -12,6 +12,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import NextLink from "next/link";
+import EmptyData from "@/components/empty-data";
 
 const Page = () => {
   const { t } = useTranslation();
@@ -69,7 +70,7 @@ const Page = () => {
               </Stack>
               <ManagerFilter />
               {isLoading && <ComponentLoading />}
-              {data && <ManagerTable items={data} />}
+              {data?.length ? <ManagerTable items={data} /> : <EmptyData />}
             </Stack>
           </Container>
         </Box>

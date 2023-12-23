@@ -125,5 +125,7 @@
   "edit-area": "Cập nhật thông tin khu vực",
   "delete-area": "Xoá khu vực này",
   "powered-by-ai": "Hỗ trợ bởi AI",
-  "ai-score": "Điểm AI"
+  "ai-score": "Điểm AI",
+  "empty-data": "Không có dữ liệu",
+  "edit-user": "Cập nhật thông tin người dùng"
 }

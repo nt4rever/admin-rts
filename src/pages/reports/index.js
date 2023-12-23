@@ -1,5 +1,6 @@
 import { ticketService } from "@/apis/ticket";
 import ComponentLoading from "@/components/Loading/ComponentLoading";
+import EmptyData from "@/components/empty-data";
 import { ReportContext } from "@/contexts/report-context";
 import { useSelection } from "@/hooks/use-selection";
 import { ReportFilter } from "@/sections/report/report-filter";
@@ -99,7 +100,7 @@ const Page = () => {
               </Stack>
               <ReportFilter reportSelected={reportsSelection.selected} />
               {isLoading && <ComponentLoading />}
-              {data && (
+              {data?.items?.length ? (
                 <ReportTable
                   count={data.meta.item_count}
                   items={data.items}
@@ -113,6 +114,8 @@ const Page = () => {
                   onSelectOne={reportsSelection.handleSelectOne}
                   selected={reportsSelection.selected}
                 />
+              ) : (
+                <EmptyData />
               )}
             </Stack>
           </Container>

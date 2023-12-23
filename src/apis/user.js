@@ -32,4 +32,19 @@ const list = async (params = undefined) => {
   return data;
 };
 
-export const userService = { me, updateProfile, uploadAvatar, list };
+const get = async (id) => {
+  const { data } = await axiosClient.get(`${USER_ENDPOINT.users}/${id}`);
+  return data;
+};
+
+const update = async (payload) => {
+  const { id, ...dto } = payload;
+  const { data } = await axiosClient.patch(`${USER_ENDPOINT.users}/${id}`, {
+    ...dto,
+    gender: dto.gender || undefined,
+    password: dto.password || undefined,
+  });
+  return data;
+};
+
+export const userService = { me, updateProfile, uploadAvatar, list, get, update };

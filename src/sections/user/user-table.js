@@ -1,9 +1,11 @@
+import { useAuthStore } from "@/store/useAuthStore";
 import { buttonActionSx } from "@/theme/common";
 import { getFullName } from "@/utils/string";
 import {
   Box,
   ButtonBase,
   Card,
+  Chip,
   Stack,
   Table,
   TableBody,
@@ -20,6 +22,7 @@ import { Edit } from "react-feather";
 import { Scrollbar } from "src/components/scrollbar";
 
 export const UserTable = (props) => {
+  const { user: currentUser } = useAuthStore();
   const {
     count = 0,
     items = [],
@@ -40,21 +43,36 @@ export const UserTable = (props) => {
               <TableRow>
                 <TableCell>{t("common.full-name")}</TableCell>
                 <TableCell>Email</TableCell>
+                <TableCell>{t("common.status")}</TableCell>
+
                 <TableCell>Role</TableCell>
-                <TableCell>{t("common.updated-at")}</TableCell>
+                <TableCell>{t("common.created_at")}</TableCell>
                 <TableCell width={120}>{t("common.action")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {items.map((user) => {
-                const updatedAt = format(new Date(user.updated_at), "dd/MM/yyyy HH:mm");
+                if (user.id === currentUser?.id) return null;
+                const createdAt = format(new Date(user.created_at), "dd/MM/yyyy HH:mm");
 
                 return (
                   <TableRow hover key={user.id}>
                     <TableCell>{getFullName(user.first_name, user.last_name)}</TableCell>
                     <TableCell>{user.email}</TableCell>
+                    <TableCell>
+                      {user.is_active ? (
+                        <Chip
+                          size="small"
+                          label={t("common.active")}
+                          color="success"
+                          variant="outlined"
+                        />
+                      ) : (
+                        <Chip size="small" label={t("common.inactive")} color="error" />
+                      )}
+                    </TableCell>
                     <TableCell>{user.role}</TableCell>
-                    <TableCell>{updatedAt}</TableCell>
+                    <TableCell>{createdAt}</TableCell>
                     <TableCell>
                       <Stack direction="row" gap={0.3}>
                         <ButtonBase

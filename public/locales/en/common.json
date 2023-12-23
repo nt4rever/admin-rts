@@ -122,5 +122,7 @@
   "edit-area": "Update area information",
   "delete-area": "Delete this area",
   "powered-by-ai": "Powered by AI",
-  "ai-score": "AI Score"
+  "ai-score": "AI Score",
+  "empty-data": "No data",
+  "edit-user": "Update information of user"
 }

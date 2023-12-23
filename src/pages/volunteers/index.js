@@ -1,5 +1,6 @@
 import { volunteerService } from "@/apis/volunteer";
 import ComponentLoading from "@/components/Loading/ComponentLoading";
+import EmptyData from "@/components/empty-data";
 import { VolunteerContext } from "@/contexts/volunteer-context";
 import { VolunteerFilter } from "@/sections/volunteer/volunteer-filter";
 import { VolunteerTable } from "@/sections/volunteer/volunteer-table";
@@ -78,7 +79,7 @@ const Page = () => {
               </Stack>
               <VolunteerFilter />
               {isLoading && <ComponentLoading />}
-              {data && (
+              {data?.items?.length ? (
                 <VolunteerTable
                   count={data.meta.item_count}
                   items={data.items}
@@ -87,6 +88,8 @@ const Page = () => {
                   page={page - 1}
                   rowsPerPage={rowsPerPage}
                 />
+              ) : (
+                <EmptyData />
               )}
             </Stack>
           </Container>

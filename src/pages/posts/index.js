@@ -11,6 +11,7 @@ import NextLink from "next/link";
 import ComponentLoading from "@/components/Loading/ComponentLoading";
 import { PostTable } from "@/sections/posts/post-table";
 import { useCallback } from "react";
+import EmptyData from "@/components/empty-data";
 
 const Page = () => {
   const { t } = useTranslation();
@@ -70,7 +71,7 @@ const Page = () => {
               </div>
             </Stack>
             {isLoading && <ComponentLoading />}
-            {data && (
+            {data?.items?.length ? (
               <PostTable
                 count={data.meta.item_count}
                 items={data.items}
@@ -79,6 +80,8 @@ const Page = () => {
                 page={page - 1}
                 rowsPerPage={rowsPerPage}
               />
+            ) : (
+              <EmptyData />
             )}
           </Stack>
         </Container>

@@ -36,7 +36,7 @@ const ManagerUpdateForm = ({ user }) => {
       first_name: user?.first_name || "",
       last_name: user?.last_name || "",
       phone_number: user?.phone_number || "",
-      date_of_birth: null,
+      date_of_birth: user?.date_of_birth || null,
       gender: user?.gender || "",
       address: user?.address || "",
       is_active: user?.is_active ?? "",

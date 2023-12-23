@@ -1,6 +1,5 @@
-import { volunteerService } from "@/apis/volunteer";
+import { userService } from "@/apis/user";
 import { genders } from "@/constants/gender";
-import { useDeleteAccount } from "@/hooks/use-delete-account";
 import { notifications } from "@mantine/notifications";
 import {
   Button,
@@ -24,18 +23,14 @@ import { useFormik } from "formik";
 import { useTranslation } from "next-i18next";
 import * as Yup from "yup";
 
-const VolunteerUpdateForm = ({ user }) => {
+const UserUpdateForm = ({ user }) => {
   const { t } = useTranslation();
-  const mutation = useMutation({ mutationFn: volunteerService.update });
+  const mutation = useMutation({ mutationFn: userService.update });
   const queryClient = useQueryClient();
-  const modelDeleteAccount = useDeleteAccount({ id: user?.id, type: "VOLUNTEER" });
 
   const formik = useFormik({
     initialValues: {
       id: user?.id,
-      lat: user?.location.lat,
-      lng: user?.location.lng,
-      radius: user?.location.radius,
       first_name: user?.first_name || "",
       last_name: user?.last_name || "",
       phone_number: user?.phone_number || "",
@@ -43,21 +38,10 @@ const VolunteerUpdateForm = ({ user }) => {
       gender: user?.gender || "",
       address: user?.address || "",
       is_active: user?.is_active ?? "",
+      password: "",
       submit: null,
     },
     validationSchema: new Yup.object({
-      lat: Yup.number()
-        .min(-90, t("validation.common.latitude-invalid"))
-        .max(90, t("validation.common.latitude-invalid"))
-        .required(t("validation.common.latitude-required")),
-      lng: Yup.number()
-        .min(-180, t("validation.common.longitude-invalid"))
-        .max(180, t("validation.common.longitude-invalid"))
-        .required(t("validation.common.longitude-required")),
-      radius: Yup.number()
-        .min(100, t("validation.radius.min"))
-        .max(10000, t("validation.radius.max"))
-        .required(t("validation.radius.required")),
       first_name: Yup.string()
         .optional()
         .max(50, t("validation.common.max-length", { max: 50 })),
@@ -73,6 +57,10 @@ const VolunteerUpdateForm = ({ user }) => {
       address: Yup.string()
         .optional()
         .max(200, t("validation.common.max-length", { max: 200 })),
+      password: Yup.string()
+        .nullable()
+        .min(6, t("validation.common.min-length", { min: 6 }))
+        .max(50, t("validation.common.max-length", { max: 50 })),
     }),
     onSubmit: async (values, helpers) => {
       try {
@@ -95,7 +83,7 @@ const VolunteerUpdateForm = ({ user }) => {
           color: "red",
         });
       } finally {
-        queryClient.invalidateQueries(["volunteers"]);
+        queryClient.invalidateQueries(["users"]);
       }
     },
   });
@@ -209,41 +197,12 @@ const VolunteerUpdateForm = ({ user }) => {
             <Grid xs={12} md={6} item>
               <TextField
                 fullWidth
-                type="number"
-                label={t("common.latitude")}
-                name="lat"
-                required
-                error={!!(formik.touched.lat && formik.errors.lat)}
-                helperText={formik.touched.lat && formik.errors.lat}
-                value={formik.values.lat}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-            </Grid>
-            <Grid xs={12} md={6} item>
-              <TextField
-                fullWidth
-                type="number"
-                label={t("common.longitude")}
-                name="lng"
-                required
-                error={!!(formik.touched.lng && formik.errors.lng)}
-                helperText={formik.touched.lng && formik.errors.lng}
-                value={formik.values.lng}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-            </Grid>
-            <Grid xs={12} md={6} item>
-              <TextField
-                fullWidth
-                type="number"
-                label={t("common.radius")}
-                name="radius"
-                required
-                error={!!(formik.touched.radius && formik.errors.radius)}
-                helperText={formik.touched.radius && formik.errors.radius}
-                value={formik.values.radius}
+                type="password"
+                label={t("common.password")}
+                name="password"
+                error={!!(formik.touched.password && formik.errors.password)}
+                helperText={formik.touched.password && formik.errors.password}
+                value={formik.values.password}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
               />
@@ -257,9 +216,6 @@ const VolunteerUpdateForm = ({ user }) => {
         </CardContent>
         <Divider />
         <CardActions sx={{ px: 1, justifyContent: "space-between" }}>
-          <Button variant="outlined" color="error" onClick={modelDeleteAccount}>
-            {t("common.delete-account")}
-          </Button>
           <Button variant="contained" type="submit">
             {t("common.submit")}
           </Button>
@@ -269,4 +225,4 @@ const VolunteerUpdateForm = ({ user }) => {
   );
 };
 
-export default VolunteerUpdateForm;
+export default UserUpdateForm;
