@@ -21,7 +21,7 @@ const Page = () => {
     order: "created_at|desc",
   });
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isSuccess } = useQuery({
     queryKey: ["managers", { area: managerFilter.area, order: managerFilter.order }],
     queryFn: () =>
       managerService.area({
@@ -70,7 +70,7 @@ const Page = () => {
               </Stack>
               <ManagerFilter />
               {isLoading && <ComponentLoading />}
-              {data?.length ? <ManagerTable items={data} /> : <EmptyData />}
+              {data?.length ? <ManagerTable items={data} /> : isSuccess && <EmptyData />}
             </Stack>
           </Container>
         </Box>

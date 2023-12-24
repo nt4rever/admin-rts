@@ -13,7 +13,7 @@ import EmptyData from "@/components/empty-data";
 
 const Page = () => {
   const { t } = useTranslation();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isSuccess } = useQuery({
     queryKey: ["area"],
     queryFn: () => areaService.all(),
   });
@@ -52,7 +52,7 @@ const Page = () => {
               </div>
             </Stack>
             {isLoading && <ComponentLoading />}
-            {data?.length ? <AreaTable items={data} /> : <EmptyData />}
+            {data?.length ? <AreaTable items={data} /> : isSuccess && <EmptyData />}
           </Stack>
         </Container>
       </Box>

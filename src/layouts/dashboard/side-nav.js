@@ -153,16 +153,13 @@ export const SideNav = (props) => {
             <img alt="Go to pro" src="/assets/devias-kit-pro.png" />
           </Box>
           <Button
-            component="a"
             endIcon={
               <SvgIcon fontSize="small">
                 <Cpu />
               </SvgIcon>
             }
             fullWidth
-            href="https://material-kit-pro-react.devias.io/"
             sx={{ mt: 2 }}
-            target="_blank"
             variant="contained"
           >
             With AI Support

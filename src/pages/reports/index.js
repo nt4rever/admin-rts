@@ -31,7 +31,7 @@ const Page = () => {
     status: searchParam.get("status") || "ALL",
   });
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isSuccess } = useQuery({
     queryKey: [
       "tickets",
       { area: user?.area, page, rowsPerPage, order: filter.order, status: filter.status },
@@ -115,7 +115,7 @@ const Page = () => {
                   selected={reportsSelection.selected}
                 />
               ) : (
-                <EmptyData />
+                isSuccess && <EmptyData />
               )}
             </Stack>
           </Container>

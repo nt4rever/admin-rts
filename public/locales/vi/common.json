@@ -127,5 +127,7 @@
   "powered-by-ai": "Hỗ trợ bởi AI",
   "ai-score": "Điểm AI",
   "empty-data": "Không có dữ liệu",
-  "edit-user": "Cập nhật thông tin người dùng"
+  "edit-user": "Cập nhật thông tin người dùng",
+  "report-per-month": "Số lượng báo cáo hằng tháng",
+  "report-status": "Trạng thái báo cáo"
 }

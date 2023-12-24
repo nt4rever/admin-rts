@@ -124,5 +124,7 @@
   "powered-by-ai": "Powered by AI",
   "ai-score": "AI Score",
   "empty-data": "No data",
-  "edit-user": "Update information of user"
+  "edit-user": "Update information of user",
+  "report-per-month": "Number of monthly reports",
+  "report-status": "Report status"
 }
