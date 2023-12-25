@@ -23,6 +23,8 @@ const routeConfig = {
     [RouteNames.postEdit]: RouteNames.postEdit,
     [RouteNames.users]: RouteNames.users,
     [RouteNames.userEdit]: RouteNames.userEdit,
+    [RouteNames.pages]: RouteNames.pages,
+    [RouteNames.pagesAdd]: RouteNames.pagesAdd,
   },
   [ROLES.AreaManager]: {
     default: RouteNames.index,

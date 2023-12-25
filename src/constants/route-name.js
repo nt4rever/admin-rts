@@ -21,6 +21,8 @@ export const RouteNames = {
   postEdit: "/posts/[id]/edit",
   users: "/users",
   userEdit: "/users/[id]/edit",
+  pages: "/pages",
+  pagesAdd: "/pages/add",
 };
 
 export default RouteNames;

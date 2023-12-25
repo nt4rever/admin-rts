@@ -13,7 +13,8 @@
     "Reports": "Báo cáo",
     "Tasks": "Nhiệm vụ",
     "Posts": "Bài đăng",
-    "Users": "Người dùng"
+    "Users": "Người dùng",
+    "Pages": "Static page"
   },
   "report": {
     "status": {

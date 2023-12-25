@@ -7,6 +7,7 @@ import UsersIcon from "@heroicons/react/24/solid/UsersIcon";
 import { SvgIcon } from "@mui/material";
 import NewspaperIcon from "@heroicons/react/24/solid/NewspaperIcon";
 import ShieldCheckIcon from "@heroicons/react/24/solid/ShieldCheckIcon";
+import PaperClipIcon from "@heroicons/react/24/solid/PaperClipIcon";
 
 export const items = [
   {
@@ -76,6 +77,16 @@ export const items = [
     icon: (
       <SvgIcon fontSize="small">
         <ShieldCheckIcon />
+      </SvgIcon>
+    ),
+  },
+  {
+    role: [ROLES.Admin],
+    title: "Pages",
+    path: "/pages",
+    icon: (
+      <SvgIcon fontSize="small">
+        <PaperClipIcon />
       </SvgIcon>
     ),
   },
