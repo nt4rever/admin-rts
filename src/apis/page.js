@@ -21,7 +21,24 @@ const all = async (params = undefined) => {
 };
 
 const create = async (payload) => {
-  const { data } = await axiosClient.post(PAGE_ENDPOINT.base, payload);
+  const dto = {
+    ...payload,
+    content: [
+      {
+        lang: "vi",
+        value: payload.content_vi,
+      },
+      {
+        lang: "en",
+        value: payload.content_en,
+      },
+    ],
+  };
+
+  delete dto.content_vi;
+  delete dto.content_en;
+
+  const { data } = await axiosClient.post(PAGE_ENDPOINT.base, dto);
   return data;
 };
 

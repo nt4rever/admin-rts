@@ -23,7 +23,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { useFormik } from "formik";
 import { useTranslation } from "next-i18next";
@@ -33,6 +33,8 @@ import { useRouter } from "next/router";
 import { ArrowLeft } from "react-feather";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import * as Yup from "yup";
+
+const getContent = (content, lang = "en") => content?.find((c) => c?.lang === lang)?.value;
 
 const Page = () => {
   const router = useRouter();
@@ -49,6 +51,7 @@ const Page = () => {
       }),
     enabled,
   });
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({ mutationFn: pageService.create });
 
@@ -64,11 +67,11 @@ const Page = () => {
       type: data?.type ?? STATIC_PAGE_TYPE[0],
       title: data?.title ?? "",
       brief_content: data?.brief_content ?? "",
-      content: data?.content ?? "",
+      content_vi: data?.content ? getContent(data.content, "vi") : "",
+      content_en: data?.content ? getContent(data.content, "en") : "",
       slug: data?.slug ?? "",
       keyword_SEO: data?.keyword_SEO ?? "",
       description_SEO: data?.description_SEO ?? "",
-      submit: null,
     },
     validationSchema: new Yup.object({
       type: Yup.mixed().oneOf(STATIC_PAGE_TYPE).optional().required(),
@@ -78,7 +81,10 @@ const Page = () => {
       brief_content: Yup.string()
         .max(500, t("validation.common.max-length", { max: 500 }))
         .nullable(),
-      content: Yup.string()
+      content_vi: Yup.string()
+        .max(100000, t("validation.common.max-length", { max: 100000 }))
+        .required(t("validation.common.content-required")),
+      content_en: Yup.string()
         .max(100000, t("validation.common.max-length", { max: 100000 }))
         .required(t("validation.common.content-required")),
       keyword_SEO: Yup.string()
@@ -96,6 +102,7 @@ const Page = () => {
           color: "green",
           autoClose: 2000,
         });
+        queryClient.invalidateQueries(["static-page"]);
         router.back();
       } catch (err) {
         if (isAxiosError(err)) {
@@ -127,7 +134,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Static Page | RTS Admin</title>
+        <title>Pages | RTS Admin</title>
       </Head>
       <Box
         component="main"
@@ -151,7 +158,7 @@ const Page = () => {
               </ButtonBase>
             </Stack>
             <Stack>
-              <Typography variant="h5">Static Page</Typography>
+              <Typography variant="h5">{t("constraint.nav.Pages")}</Typography>
             </Stack>
             {isLoading && enabled ? (
               <ComponentLoading />
@@ -214,13 +221,30 @@ const Page = () => {
                         />
                       </Grid>
                       <Grid xs={12} item>
+                        <Typography sx={{ mb: 1 }} variant="body2">
+                          Vietnamese
+                        </Typography>
                         <Editor
-                          content={formik.values.content}
-                          onChange={(v) => formik.setFieldValue("content", v)}
+                          content={formik.values.content_vi}
+                          onChange={(v) => formik.setFieldValue("content_vi", v)}
+                          placeholder={t("common.placeholder-post-content")}
+                        />
+                        <Typography color="error" sx={{ mb: 1 }} variant="body2">
+                          {formik.touched.content_vi && formik.errors.content_vi}
+                        </Typography>
+                      </Grid>
+
+                      <Grid xs={12} item>
+                        <Typography sx={{ mb: 1 }} variant="body2">
+                          English
+                        </Typography>
+                        <Editor
+                          content={formik.values.content_en}
+                          onChange={(v) => formik.setFieldValue("content_en", v)}
                           placeholder={t("common.placeholder-post-content")}
                         />
                         <Typography color="error" sx={{ mt: 1 }} variant="body2">
-                          {formik.touched.content && formik.errors.content}
+                          {formik.touched.content_en && formik.errors.content_en}
                         </Typography>
                       </Grid>
 

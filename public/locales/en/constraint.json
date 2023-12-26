@@ -13,7 +13,8 @@
     "Reports": "Reports",
     "Tasks": "Tasks",
     "Posts": "Posts",
-    "Users": "Users"
+    "Users": "Users",
+    "Pages": "Pages"
   },
   "report": {
     "status": {
