@@ -28,7 +28,7 @@ import * as Yup from "yup";
 const Page = () => {
   const router = useRouter();
   const { t } = useTranslation();
-  const mutation = useMutation({ mutationFn: areaService.update });
+  const mutation = useMutation({ mutationFn: areaService.create });
 
   const formik = useFormik({
     initialValues: {
